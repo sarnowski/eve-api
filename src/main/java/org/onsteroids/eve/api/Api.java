@@ -1,0 +1,77 @@
+/**
+ * (c) 2010 Tobias Sarnowski
+ * All rights reserved.
+ */
+package org.onsteroids.eve.api;
+
+import com.eveonline.api.ApiService;
+import com.eveonline.api.server.ServerStatusApi;
+import com.google.inject.Binder;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Guice bootstrapper and connector for everyone, not using Guice.
+ *
+ * @author Tobias Sarnowski
+ */
+public class Api {
+	private static final Logger LOG = LoggerFactory.getLogger(Api.class);
+
+	private final Injector injector;
+
+	private Api(Module... apiModules) {
+		injector = Guice.createInjector(apiModules);
+	}
+
+
+	/**
+	 * @return a ready to use api object
+	 */
+	public static Api createDefaultTranquilityApi() {
+		return new Api(new DefaultTranquilityModule());
+	}
+
+	/**
+	 * @param apiModules addition modules to load
+	 * @return a ready to use api object
+	 */
+	public static Api createDefaultTranquilityApiWith(final Module... apiModules) {
+		return new Api(new DefaultTranquilityModule(), new Module() {
+			@Override
+			public void configure(Binder binder) {
+				for (Module module: apiModules) {
+					binder.install(module);
+				}
+			}
+		});
+	}
+
+
+	/**
+	 * Initializes the api guice injector and checks, if ServerStatusApi is available.
+	 *
+	 * @param apiModules guice modules to use
+	 * @return an api object
+	 */
+	public static Api createApi(Module... apiModules) {
+		Api api = new Api(apiModules);
+		api.get(ServerStatusApi.class);  // will throw a ConfigurationException if not available
+		return api;
+	}
+
+
+	/**
+	 * @param apiService the API service type to retrieve
+	 * @param <T>
+	 * @return the ready-to-use API service instance
+	 * @throws ConfigurationException if requested ApiService is not available
+	 */
+	public <T extends ApiService> T get(Class<T> apiService) {
+		return injector.getInstance(apiService);
+	}
+
+}
