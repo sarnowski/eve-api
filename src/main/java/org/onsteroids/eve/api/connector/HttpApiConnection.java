@@ -17,12 +17,12 @@ import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.onsteroids.eve.api.provider.XmlUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -110,6 +110,7 @@ class HttpApiConnection implements ApiConnection {
 
 			final Document doc = builder.parse(stream);
 			final Element root = doc.getDocumentElement();
+			final XmlUtility xml = new XmlUtility(root);
 
 			// eveapi xml?
 			if (!"eveapi".equals(root.getNodeName())) {
@@ -117,7 +118,7 @@ class HttpApiConnection implements ApiConnection {
 			}
 
 			// correct version?
-			final String version = root.getAttribute("version");
+			final String version = xml.getAttribute("version");
 			if (version == null || !API_VERSION.equals(version)) {
 				throw new ConnectorApiException("library only compatible with api version '" + API_VERSION + "'; got '" + version + "'");
 			} else {
@@ -126,22 +127,14 @@ class HttpApiConnection implements ApiConnection {
 
 			// get current server time
 			final Date serverCurrentTime;
-			NodeList currentTimeList = root.getElementsByTagName("currentTime");
-			if (currentTimeList.getLength() != 1) {
-				throw new ApiException("unique currentTime expected");
-			}
-			Node currentTimeNode = currentTimeList.item(0);
+			Node currentTimeNode = xml.getNodeByName("currentTime");
 			String currentTimeText = currentTimeNode.getTextContent();
 			serverCurrentTime = dateParser.parse(currentTimeText);
 			LOG.trace("Current server time: {}", serverCurrentTime);
 
 			// get cache times
 			final Date serverCachedUntil;
-			NodeList currentCachedList = root.getElementsByTagName("cachedUntil");
-			if (currentTimeList.getLength() != 1) {
-				throw new ApiException("unique cachedUntil expected");
-			}
-			Node currentCachedNode = currentCachedList.item(0);
+			Node currentCachedNode = xml.getNodeByName("cachedUntil");
 			String currentCachedText = currentCachedNode.getTextContent();
 			serverCachedUntil = dateParser.parse(currentCachedText);
 			LOG.trace("Cached until: {}", serverCachedUntil);
@@ -149,24 +142,21 @@ class HttpApiConnection implements ApiConnection {
 			final Date now = new Date();
 			long timeDiff = now.getTime() - serverCurrentTime.getTime();
 			LOG.trace("Time difference: {} seconds", timeDiff);
+
 			final Date cachedUntil = new Date(serverCachedUntil.getTime() + timeDiff);
+			LOG.trace("Locally cached until: {}", cachedUntil);
 
 			// error message?
-			NodeList errorNodeList = root.getElementsByTagName("error");
-			if (errorNodeList.getLength() != 0) {
-				Node errorNode = errorNodeList.item(0);
-				int errorCode = Integer.parseInt(errorNode.getAttributes().getNamedItem("code").getTextContent());
+			if (xml.hasNodeWithName("error")) {
+				Node errorNode = xml.getNodeByName("error");
+				int errorCode = Integer.parseInt(XmlUtility.getAttribute("code", errorNode));
 				String errorMessage = errorNode.getTextContent();
 				throw new ApiResultException(errorCode, errorMessage);
 			}
 
 			// now get the content
 			final Node result;
-			NodeList resultNodeList = root.getElementsByTagName("result");
-			if (resultNodeList.getLength() != 1) {
-				throw new ConnectorApiException("unique result expected");
-			}
-			result = resultNodeList.item(0);
+			result = xml.getNodeByName("result");
 
 			LOG.debug("Returning new result from server.");
 
