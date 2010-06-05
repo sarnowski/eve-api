@@ -6,7 +6,7 @@ package org.onsteroids.eve.api.provider.account;
 
 import com.eveonline.api.ApiListResult;
 import com.eveonline.api.LimitedApiKey;
-import com.eveonline.api.account.Character;
+import com.eveonline.api.account.Characters;
 import com.eveonline.api.account.CharactersApi;
 import com.eveonline.api.exceptions.ApiException;
 import com.google.common.base.Function;
@@ -34,11 +34,11 @@ class CharactersApiImpl extends AbstractApiService implements CharactersApi {
 	}
 
 	@Override
-	public ApiListResult<Character> getCharacters(LimitedApiKey key) throws ApiException {
+	public ApiListResult<Characters.Character> getCharacters(LimitedApiKey key) throws ApiException {
 		final XmlApiResult result = apiConnection.call(XMLPATH_CHARACTERS, key);
-		return getRowset(result.getResult(), new Function<Node, Character>() {
+		return getRowset(result.getResult(), new Function<Node, Characters.Character>() {
 			@Override
-			public Character apply(Node from) {
+			public Characters.Character apply(Node from) {
 				return new CharacterImpl(result, from);
 			}
 		});

@@ -56,10 +56,11 @@ public class Api {
 	 *
 	 * @param apiModules guice modules to use
 	 * @return an api object
+	 * @throws ConfigurationException if you forgot to install a nessecary module
 	 */
 	public static Api createApi(Module... apiModules) {
 		Api api = new Api(apiModules);
-		api.get(ServerStatusApi.class);  // will throw a ConfigurationException if not available
+		api.get(ServerStatusApi.class);
 		return api;
 	}
 

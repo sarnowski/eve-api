@@ -6,7 +6,8 @@ package org.onsteroids.eve.api;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import org.onsteroids.eve.api.connector.ApiConnectionModule;
+import org.onsteroids.eve.api.connector.parser.ApiCoreParserV2Module;
+import org.onsteroids.eve.api.connector.http.PooledHttpApiConnectionModule;
 import org.onsteroids.eve.api.connector.TranquilityModule;
 import org.onsteroids.eve.api.provider.ApiServicesModule;
 import org.slf4j.Logger;
@@ -20,8 +21,16 @@ public class DefaultTranquilityModule implements Module {
 
 	@Override
 	public void configure(Binder binder) {
+		// use the official ccp api server for the live servers
 		binder.install(new TranquilityModule());
-		binder.install(new ApiConnectionModule());
+
+		// thread safe, pooled implementation to make high performance http calls
+		binder.install(new PooledHttpApiConnectionModule());
+
+		// parser which can handle API version 2
+		binder.install(new ApiCoreParserV2Module());
+
+		// binds all ApiServices
 		binder.install(new ApiServicesModule());
 	}
 }

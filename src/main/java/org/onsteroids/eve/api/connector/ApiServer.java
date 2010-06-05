@@ -10,6 +10,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
+ * Marks a bound java.net.URI as the configure URI to use for API calls.
+ *
  * @author Tobias Sarnowski
  */
 @BindingAnnotation

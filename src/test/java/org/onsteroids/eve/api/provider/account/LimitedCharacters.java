@@ -4,7 +4,7 @@
  */
 package org.onsteroids.eve.api.provider.account;
 
-import com.eveonline.api.account.Character;
+import com.eveonline.api.account.Characters;
 import com.eveonline.api.account.CharactersApi;
 import com.eveonline.api.exceptions.ApiException;
 import org.junit.Test;
@@ -23,12 +23,12 @@ public class LimitedCharacters extends AbstractApiProvider {
 	@Test
 	public void retrieveCharacters() throws ApiException {
 		CharactersApi charactersApi = getService(CharactersApi.class);
-		List<Character> characters = charactersApi.getCharacters(getLimitedApiKey());
+		List<Characters.Character> characters = charactersApi.getCharacters(getLimitedApiKey());
 
-		for (Character character: characters) {
+		for (Characters.Character character: characters) {
 			LOG.info("Found Character:  {} ({}) [{} ({})]", new Object[]{
 					character.getName(),
-					character.getCharacterId(),
+					character.getId(),
 					character.getCorporationName(),
 					character.getCorporationId()
 			});

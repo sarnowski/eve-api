@@ -13,6 +13,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
+ * Binds the @ApiServer java.net.URI to the official Tranquility address.
+ *
  * @author Tobias Sarnowski
  */
 public class TranquilityModule implements Module {

@@ -4,7 +4,7 @@
  */
 package org.onsteroids.eve.api.provider.account;
 
-import com.eveonline.api.account.Character;
+import com.eveonline.api.account.Characters;
 import org.onsteroids.eve.api.connector.XmlApiResult;
 import org.onsteroids.eve.api.provider.AbstractApiResult;
 import org.onsteroids.eve.api.provider.XmlUtility;
@@ -15,7 +15,7 @@ import org.w3c.dom.Node;
 /**
  * @author Tobias Sarnowski
  */
-class CharacterImpl extends AbstractApiResult implements Character {
+class CharacterImpl extends AbstractApiResult implements Characters.Character {
 	private static final Logger LOG = LoggerFactory.getLogger(CharacterImpl.class);
 
 	private final XmlUtility xml;
@@ -26,8 +26,8 @@ class CharacterImpl extends AbstractApiResult implements Character {
 	}
 
 	@Override
-	public int getCharacterId() {
-		return Integer.parseInt(xml.getAttribute("characterID"));
+	public long getId() {
+		return Long.parseLong(xml.getAttribute("characterID"));
 	}
 
 	@Override
@@ -36,8 +36,8 @@ class CharacterImpl extends AbstractApiResult implements Character {
 	}
 
 	@Override
-	public int getCorporationId() {
-		return Integer.parseInt(xml.getAttribute("corporationID"));
+	public long getCorporationId() {
+		return Long.parseLong(xml.getAttribute("corporationID"));
 	}
 
 	@Override

@@ -5,7 +5,7 @@
 package org.onsteroids.eve.api.provider;
 
 import com.eveonline.api.ApiService;
-import com.eveonline.api.CeoApiKey;
+import com.eveonline.api.DirectorApiKey;
 import com.eveonline.api.FullApiKey;
 import com.eveonline.api.LimitedApiKey;
 import org.onsteroids.eve.api.Api;
@@ -41,12 +41,12 @@ public abstract class AbstractApiProvider {
 		return loadApiKey(new File(System.getProperty("user.home") + File.separatorChar + "eve_full.properties"));
 	}
 
-	public CeoApiKey getCeoApiKey() {
+	public DirectorApiKey getCeoApiKey() {
 		return loadApiKey(new File(System.getProperty("user.home") + File.separatorChar + "eve_ceo.properties"));
 	}
 
 
-	private CeoApiKey loadApiKey(File file) {
+	private DirectorApiKey loadApiKey(File file) {
 		final Properties properties = new Properties();
 		try {
 			LOG.trace("Loading API Key informations from {}", file);
@@ -54,7 +54,7 @@ public abstract class AbstractApiProvider {
 		} catch (IOException e) {
 			throw new IllegalStateException("ApiKey file not found: " + file, e);
 		}
-		return new CeoApiKey() {
+		return new DirectorApiKey() {
 			@Override
 			public int getUserId() {
 				return Integer.parseInt(properties.getProperty("userID"));
