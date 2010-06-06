@@ -40,7 +40,7 @@ public abstract class SerializableApiResult implements ApiResult, Serializable {
 		usedParameters = xmlApiResult.getUsedParameters();
 		usedServerUri = xmlApiResult.getUsedServerUri();
 
-		processResult(node);
+		processResult(xmlApiResult, node);
 	}
 
 	/**
@@ -48,7 +48,7 @@ public abstract class SerializableApiResult implements ApiResult, Serializable {
 	 *
 	 * @param xmlResult the result node of an api response
 	 */
-	public abstract void processResult(Node xmlResult) throws ApiException;
+	public abstract void processResult(XmlApiResult xmlApiResult, Node xmlResult) throws ApiException;
 
 	@Override
 	public Date getDateCreated() {

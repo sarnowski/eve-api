@@ -6,6 +6,7 @@ package org.onsteroids.eve.api.provider.account;
 
 import com.eveonline.api.account.Characters;
 import org.onsteroids.eve.api.XmlUtility;
+import org.onsteroids.eve.api.connector.XmlApiResult;
 import org.onsteroids.eve.api.provider.SerializableApiListResult;
 import org.onsteroids.eve.api.provider.SerializableApiResult;
 import org.slf4j.Logger;
@@ -15,14 +16,13 @@ import org.w3c.dom.Node;
 /**
  * @author Tobias Sarnowski
  */
-class CharactersImpl extends SerializableApiListResult<Characters.Character> implements Characters {
+class CharactersImpl extends SerializableApiListResult<CharactersImpl.CharacterImpl> implements Characters {
 	private static final Logger LOG = LoggerFactory.getLogger(CharactersImpl.class);
+	
 
 	@Override
-	public CharactersImpl.CharacterImpl getRowDefinition(Node xmlResult) {
-		CharacterImpl character = new CharacterImpl();
-		character.processResult(xmlResult);
-		return character;
+	public Class<? extends CharacterImpl> getRowDefinition() {
+		return CharacterImpl.class;
 	}
 
 	public static class CharacterImpl extends SerializableApiResult implements Characters.Character {
@@ -33,7 +33,7 @@ class CharactersImpl extends SerializableApiListResult<Characters.Character> imp
 		private String corporationName;
 
 		@Override
-		public void processResult(Node xmlResult) {
+		public void processResult(XmlApiResult xmlApiResult, Node xmlResult) {
 			XmlUtility xml = new XmlUtility(xmlResult);
 
 			id = Long.parseLong(xml.getAttribute("characterID"));

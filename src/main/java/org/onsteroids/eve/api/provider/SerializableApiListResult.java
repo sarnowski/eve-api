@@ -33,10 +33,10 @@ public abstract class SerializableApiListResult<S extends SerializableApiResult>
 	private List<S> results;
 	
 	@Override
-	public void processResult(XmlApiResult xmlApiResult) throws ApiException {
+	public void processResult(XmlApiResult xmlApiResult, Node xmlResult) throws ApiException {
 		List<S> results = Lists.newArrayList();
 
-		Class<S> definition = getRowDefinition();
+		Class<? extends S> definition = getRowDefinition();
 
 		Node rowset = XmlUtility.getNodeByName("rowset", xmlResult);
 		List<Node> rows = XmlUtility.getNodesByName("row", rowset);
@@ -64,7 +64,7 @@ public abstract class SerializableApiListResult<S extends SerializableApiResult>
 	 * @param <R> an implementation
 	 * @return the class which defines the implementation
 	 */
-	public abstract Class<S> getRowDefinition();
+	public abstract Class<? extends S> getRowDefinition();
 
 
 	@Override

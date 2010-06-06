@@ -79,7 +79,7 @@ public abstract class AbstractApiService {
 			} catch (IllegalAccessException e) {
 				throw new InternalApiException(e);
 			}
-			cached.processCoreResult(result);
+			cached.processCoreResult(result, result.getResult());
 
 			// put into the cache for future usage
 			apiCache.putApiResult(cached);
