@@ -16,12 +16,25 @@ class NoApiCache implements ApiCache {
 
 	@Override
 	public void putApiResult(ApiResult apiResult) {
-		// nothing to do here
 	}
 
 	@Override
-	public ApiResult getApiResult(URI serverUri, String xmlPath, ApiKey key, Map<String, String> parameters) {
-		// return null everytime
+	public <T extends ApiResult> T getApiResult(Class<T> resultType, URI serverUri, String xmlPath) {
+		return null;
+	}
+
+	@Override
+	public <T extends ApiResult> T getApiResult(Class<T> resultType, URI serverUri, String xmlPath, Map<String, String> parameters) {
+		return null;
+	}
+
+	@Override
+	public <T extends ApiResult> T getApiResult(Class<T> resultType, URI serverUri, String xmlPath, ApiKey key) {
+		return null;
+	}
+
+	@Override
+	public <T extends ApiResult> T getApiResult(Class<T> resultType, URI serverUri, String xmlPath, ApiKey key, Map<String, String> parameters) {
 		return null;
 	}
 }
