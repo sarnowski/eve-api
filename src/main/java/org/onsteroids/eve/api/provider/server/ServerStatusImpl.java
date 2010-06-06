@@ -4,8 +4,10 @@
  */
 package org.onsteroids.eve.api.provider.server;
 
+import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.server.ServerStatus;
 import org.onsteroids.eve.api.XmlUtility;
+import org.onsteroids.eve.api.connector.XmlApiResult;
 import org.onsteroids.eve.api.provider.SerializableApiResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +23,7 @@ class ServerStatusImpl extends SerializableApiResult implements ServerStatus {
 	private long onlinePlayers;
 
 	@Override
-	public void processResult(Node xmlResult) {
+	public void processResult(XmlApiResult xmlApiResult, Node xmlResult) throws ApiException {
 		XmlUtility xml = new XmlUtility(xmlResult);
 
 		isServerOpen = "True".equalsIgnoreCase(xml.getContentOf("serverOpen"));
