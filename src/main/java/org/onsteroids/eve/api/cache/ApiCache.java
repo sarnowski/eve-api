@@ -19,10 +19,37 @@ public interface ApiCache {
 	/**
 	 * @param serverUri the api server uri
 	 * @param xmlPath the xml path
-	 * @param key the used api key (can be null)
-	 * @param parameters the used parameters (can be null)
+	 * @param <T> an api result type
 	 * @return the cached api result or null if apiresult not cached
 	 */
-	ApiResult getApiResult(URI serverUri, String xmlPath, ApiKey key, Map<String,String> parameters);
+	<T extends ApiResult> T getApiResult(Class<T> resultType, URI serverUri, String xmlPath);
+
+	/**
+	 * @param serverUri the api server uri
+	 * @param xmlPath the xml path
+	 * @param parameters the used parameters (can be null)
+	 * @param <T> an api result type
+	 * @return the cached api result or null if apiresult not cached
+	 */
+	<T extends ApiResult> T getApiResult(Class<T> resultType, URI serverUri, String xmlPath, Map<String,String> parameters);
+
+	/**
+	 * @param serverUri the api server uri
+	 * @param xmlPath the xml path
+	 * @param key the used api key (can be null)
+	 * @param <T> an api result type
+	 * @return the cached api result or null if apiresult not cached
+	 */
+	<T extends ApiResult> T getApiResult(Class<T> resultType, URI serverUri, String xmlPath, ApiKey key);
+
+	/**
+	 * @param serverUri the api server uri
+	 * @param xmlPath the xml path
+	 * @param key the used api key (can be null)
+	 * @param parameters the used parameters (can be null)
+	 * @param <T> an api result type
+	 * @return the cached api result or null if apiresult not cached
+	 */
+	<T extends ApiResult> T getApiResult(Class<T> resultType, URI serverUri, String xmlPath, ApiKey key, Map<String,String> parameters);
 
 }

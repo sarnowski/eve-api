@@ -30,6 +30,7 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
+import org.onsteroids.eve.api.InternalApiException;
 import org.onsteroids.eve.api.connector.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -146,7 +147,7 @@ class PooledHttpApiConnection implements ApiConnection {
 		} catch (ApiException e) {
 			throw e;
 		} catch (Exception e) {
-			throw new ConnectorApiException(e);
+			throw new InternalApiException(e);
 		}
 	}
 

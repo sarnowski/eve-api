@@ -2,7 +2,7 @@
  * (c) 2010 Tobias Sarnowski
  * All rights reserved.
  */
-package org.onsteroids.eve.api.provider;
+package org.onsteroids.eve.api;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
