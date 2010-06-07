@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package org.onsteroids.eve.api.cache;
+package org.onsteroids.eve.api.cache.infinispan;
 
 import com.eveonline.api.ApiKey;
 import com.eveonline.api.ApiResult;
 import com.google.inject.Inject;
 import org.infinispan.Cache;
-import org.infinispan.manager.DefaultCacheManager;
-import org.infinispan.manager.EmbeddedCacheManager;
+import org.onsteroids.eve.api.cache.ApiCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,13 +35,14 @@ import java.util.concurrent.TimeUnit;
 class InfinispanApiCache implements ApiCache {
 	private static final Logger LOG = LoggerFactory.getLogger(InfinispanApiCache.class);
 
-	private final EmbeddedCacheManager cacheManager;
+	//private final EmbeddedCacheManager cacheManager;
 	private final Cache<CacheKey,ApiResult> cache;
 
 	@Inject
-	public InfinispanApiCache() {
-		cacheManager = new DefaultCacheManager();
-		cache = cacheManager.getCache();
+	public InfinispanApiCache(@Api Cache cache) {
+		//cacheManager = new DefaultCacheManager();
+		//cache = cacheManager.getCache();
+        this.cache = cache;
 	}
 
 	@Override

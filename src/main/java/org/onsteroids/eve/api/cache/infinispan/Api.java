@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package org.onsteroids.eve.api.cache;
+package org.onsteroids.eve.api.cache.infinispan;
 
-import com.google.inject.Binder;
-import com.google.inject.Module;
-import com.google.inject.Singleton;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.google.inject.BindingAnnotation;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author Tobias Sarnowski
  */
-public class InfinispanApiCacheModule implements Module {
-	private static final Logger LOG = LoggerFactory.getLogger(InfinispanApiCacheModule.class);
+@BindingAnnotation
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Api {
 
-	@Override
-	public void configure(Binder binder) {
-		binder.bind(ApiCache.class).to(InfinispanApiCache.class).in(Singleton.class);
-	}
 }

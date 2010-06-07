@@ -41,8 +41,16 @@ public abstract class AbstractApiTest {
 
 	private final Api api;
 
-	protected AbstractApiTest() {
-		api = Api.createDefaultTranquilityApi();
+    protected AbstractApiTest() {
+        this(false);
+    }
+
+	protected AbstractApiTest(boolean withStorage) {
+        if (withStorage) {
+            api = Api.createDefaultTranquilityApi();
+        } else {
+		    api = Api.createDefaultTranquilityApi(this.getClass().getResource("/infinispan-nostorage.xml"));
+        }
 	}
 
 	public <T extends ApiService> T getService(Class<T> service) {

@@ -29,6 +29,8 @@ import com.google.inject.Module;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URL;
+
 /**
  * Guice bootstrapper and connector for everyone, not using Guice.
  *
@@ -51,21 +53,13 @@ public class Api {
 		return new Api(new DefaultTranquilityModule());
 	}
 
-	/**
-	 * @param apiModules addition modules to load
+    /**
+     * @param infinispanConfiguration path to an infinispan configuration file
 	 * @return a ready to use api object
 	 */
-	public static Api createDefaultTranquilityApiWith(final Module... apiModules) {
-		return new Api(new DefaultTranquilityModule(), new Module() {
-			@Override
-			public void configure(Binder binder) {
-				for (Module module: apiModules) {
-					binder.install(module);
-				}
-			}
-		});
+    public static Api createDefaultTranquilityApi(URL infinispanConfiguration) {
+		return new Api(new DefaultTranquilityModule(infinispanConfiguration));
 	}
-
 
 	/**
 	 * Initializes the api guice injector and checks, if ServerStatusApi is available.

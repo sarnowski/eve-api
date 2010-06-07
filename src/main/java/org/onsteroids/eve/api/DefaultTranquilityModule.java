@@ -20,9 +20,11 @@
  */
 package org.onsteroids.eve.api;
 
+import com.google.common.base.Preconditions;
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import org.onsteroids.eve.api.cache.InfinispanApiCacheModule;
+import org.onsteroids.eve.api.cache.infinispan.InfinispanApiCacheConfiguratorModule;
+import org.onsteroids.eve.api.cache.infinispan.InfinispanApiCacheModule;
 import org.onsteroids.eve.api.connector.TranquilityModule;
 import org.onsteroids.eve.api.connector.http.PooledHttpApiConnectionModule;
 import org.onsteroids.eve.api.connector.parser.ApiCoreParserV2Module;
@@ -30,15 +32,30 @@ import org.onsteroids.eve.api.provider.ApiServicesModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URL;
+
 /**
  * @author Tobias Sarnowski
  */
 public class DefaultTranquilityModule implements Module {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultTranquilityModule.class);
 
-	@Override
+    private final URL configuration;
+
+    public DefaultTranquilityModule() {
+        // infinispan configuration file
+        configuration = this.getClass().getResource("/infinispan-localstorage.xml");
+    }
+
+    public DefaultTranquilityModule(URL configuration) {
+        this.configuration = configuration;
+    }
+
+    @Override
 	public void configure(Binder binder) {
-		// use the official ccp api server for the live servers
+        Preconditions.checkNotNull(configuration, "Infinispan configuration file.");
+
+        // use the official ccp api server for the live servers
 		binder.install(new TranquilityModule());
 
 		// thread safe, pooled implementation to make high performance http calls
@@ -47,7 +64,8 @@ public class DefaultTranquilityModule implements Module {
 		// parser which can handle API version 2
 		binder.install(new ApiCoreParserV2Module());
 
-		// use a cache
+		// use local infinispan cache
+        binder.install(new InfinispanApiCacheConfiguratorModule(configuration));
 		binder.install(new InfinispanApiCacheModule());
 
 		// binds all ApiServices
