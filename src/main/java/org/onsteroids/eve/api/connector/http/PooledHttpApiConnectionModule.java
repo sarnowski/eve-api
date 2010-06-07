@@ -23,7 +23,9 @@ package org.onsteroids.eve.api.connector.http;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
+import org.apache.http.client.HttpClient;
 import org.onsteroids.eve.api.connector.ApiConnection;
+import org.onsteroids.eve.api.connector.ApiServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +37,7 @@ public class PooledHttpApiConnectionModule implements Module {
 
 	public void configure(Binder binder) {
 		binder.bind(ApiConnection.class).to(PooledHttpApiConnection.class).in(Singleton.class);
+		binder.bind(HttpClient.class).annotatedWith(ApiServer.class).toProvider(PooledHttpApiConnection.class).in(Singleton.class);
 	}
 
 }

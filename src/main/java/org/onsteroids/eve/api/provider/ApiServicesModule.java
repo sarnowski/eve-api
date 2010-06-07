@@ -22,10 +22,11 @@ package org.onsteroids.eve.api.provider;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import org.onsteroids.eve.api.provider.account.AccountModule;
-import org.onsteroids.eve.api.provider.eve.EveModule;
-import org.onsteroids.eve.api.provider.map.MapModule;
-import org.onsteroids.eve.api.provider.server.ServerModule;
+import org.onsteroids.eve.api.provider.account.AccountServicesModule;
+import org.onsteroids.eve.api.provider.eve.EveServicesModule;
+import org.onsteroids.eve.api.provider.img.ImgServicesModule;
+import org.onsteroids.eve.api.provider.map.MapServicesModule;
+import org.onsteroids.eve.api.provider.server.ServerServicesModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +37,10 @@ public class ApiServicesModule implements Module {
 	private static final Logger LOG = LoggerFactory.getLogger(ApiServicesModule.class);
 
 	public void configure(Binder binder) {
-		binder.install(new AccountModule());
-        binder.install(new EveModule());
-        binder.install(new MapModule());
-		binder.install(new ServerModule());
+		binder.install(new AccountServicesModule());
+        binder.install(new EveServicesModule());
+		binder.install(new ImgServicesModule());
+        binder.install(new MapServicesModule());
+		binder.install(new ServerServicesModule());
 	}
 }

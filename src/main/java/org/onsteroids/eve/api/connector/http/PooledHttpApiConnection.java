@@ -25,6 +25,7 @@ import com.eveonline.api.exceptions.ApiException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.name.Named;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -47,7 +48,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.onsteroids.eve.api.InternalApiException;
-import org.onsteroids.eve.api.connector.*;
+import org.onsteroids.eve.api.connector.ApiConnection;
+import org.onsteroids.eve.api.connector.ApiCoreParser;
+import org.onsteroids.eve.api.connector.ApiServer;
+import org.onsteroids.eve.api.connector.XmlApiResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -62,7 +66,7 @@ import java.util.Map;
 /**
  * @author Tobias Sarnowski
  */
-class PooledHttpApiConnection implements ApiConnection {
+class PooledHttpApiConnection implements ApiConnection, Provider<HttpClient> {
 	private static final Logger LOG = LoggerFactory.getLogger(PooledHttpApiConnection.class);
 
 	// xml parser
@@ -93,6 +97,14 @@ class PooledHttpApiConnection implements ApiConnection {
 	}
 
 
+	@Override
+	public HttpClient get() {
+		if (httpClient == null) {
+			initializeHttpClient();
+		}
+		return httpClient;
+	}
+
 	/**
 	 * Initializses and configures the http client connection pool.
 	 */
@@ -112,6 +124,7 @@ class PooledHttpApiConnection implements ApiConnection {
 		ClientConnectionManager cm = new ThreadSafeClientConnManager(params, schemeRegistry);
 		httpClient = new DefaultHttpClient(cm, params);
 	}
+
 
 	@Override
 	public XmlApiResult call(final String xmlPath, final ApiKey key, final Map<String, String> parameters) throws ApiException {
@@ -166,7 +179,6 @@ class PooledHttpApiConnection implements ApiConnection {
 			throw new InternalApiException(e);
 		}
 	}
-
 
 	@Override
 	public URI getServerUri() {

@@ -18,23 +18,24 @@
  * (c) 2010 Tobias Sarnowski
  * All rights reserved.
  */
-package org.onsteroids.eve.api.provider.account;
+package org.onsteroids.eve.api.provider.map;
 
-import com.eveonline.api.account.CharactersApi;
+import com.eveonline.api.map.FacWarSystemsApi;
+import com.eveonline.api.map.JumpsApi;
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.google.inject.Scopes;
+import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Tobias Sarnowski
  */
-public final class AccountModule implements Module {
-	private static final Logger LOG = LoggerFactory.getLogger(AccountModule.class);
+public final class MapServicesModule implements Module {
+	private static final Logger LOG = LoggerFactory.getLogger(MapServicesModule.class);
 
-	@Override
 	public void configure(Binder binder) {
-		binder.bind(CharactersApi.class).to(CharactersApiImpl.class).in(Scopes.NO_SCOPE);
+        binder.bind(FacWarSystemsApi.class).to(FacWarSystemsApiImpl.class).in(Singleton.class);
+		binder.bind(JumpsApi.class).to(JumpsApiImpl.class).in(Singleton.class);
 	}
 }

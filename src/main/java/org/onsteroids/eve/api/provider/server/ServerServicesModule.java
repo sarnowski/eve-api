@@ -18,10 +18,9 @@
  * (c) 2010 Tobias Sarnowski
  * All rights reserved.
  */
-package org.onsteroids.eve.api.provider.map;
+package org.onsteroids.eve.api.provider.server;
 
-import com.eveonline.api.map.FacWarSystemsApi;
-import com.eveonline.api.map.JumpsApi;
+import com.eveonline.api.server.ServerStatusApi;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Singleton;
@@ -31,11 +30,10 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
-public final class MapModule implements Module {
-	private static final Logger LOG = LoggerFactory.getLogger(MapModule.class);
+public final class ServerServicesModule implements Module {
+	private static final Logger LOG = LoggerFactory.getLogger(ServerServicesModule.class);
 
 	public void configure(Binder binder) {
-        binder.bind(FacWarSystemsApi.class).to(FacWarSystemsApiImpl.class).in(Singleton.class);
-		binder.bind(JumpsApi.class).to(JumpsApiImpl.class).in(Singleton.class);
+		binder.bind(ServerStatusApi.class).to(ServerStatusApiImpl.class).in(Singleton.class);
 	}
 }

@@ -18,22 +18,23 @@
  * (c) 2010 Tobias Sarnowski
  * All rights reserved.
  */
-package org.onsteroids.eve.api.provider.server;
+package org.onsteroids.eve.api.provider.account;
 
-import com.eveonline.api.server.ServerStatusApi;
+import com.eveonline.api.account.CharactersApi;
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.google.inject.Singleton;
+import com.google.inject.Scopes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Tobias Sarnowski
  */
-public final class ServerModule implements Module {
-	private static final Logger LOG = LoggerFactory.getLogger(ServerModule.class);
+public final class AccountServicesModule implements Module {
+	private static final Logger LOG = LoggerFactory.getLogger(AccountServicesModule.class);
 
+	@Override
 	public void configure(Binder binder) {
-		binder.bind(ServerStatusApi.class).to(ServerStatusApiImpl.class).in(Singleton.class);
+		binder.bind(CharactersApi.class).to(CharactersApiImpl.class).in(Scopes.NO_SCOPE);
 	}
 }

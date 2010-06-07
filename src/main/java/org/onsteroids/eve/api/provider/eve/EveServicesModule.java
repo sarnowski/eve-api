@@ -26,8 +26,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
-public class EveModule implements Module {
-    private static final Logger LOG = LoggerFactory.getLogger(EveModule.class);
+public class EveServicesModule implements Module {
+    private static final Logger LOG = LoggerFactory.getLogger(EveServicesModule.class);
 
     @Override
     public void configure(Binder binder) {
