@@ -8,14 +8,14 @@ import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.server.ServerStatus;
 import com.eveonline.api.server.ServerStatusApi;
 import org.junit.Test;
-import org.onsteroids.eve.api.provider.AbstractApiProvider;
+import org.onsteroids.eve.api.provider.AbstractApiTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Tobias Sarnowski
  */
-public class NokServerStatus extends AbstractApiProvider {
+public class NokServerStatus extends AbstractApiTest {
 	private static final Logger LOG = LoggerFactory.getLogger(NokServerStatus.class);
 
 	@Test

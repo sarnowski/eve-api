@@ -9,7 +9,7 @@ import com.eveonline.api.account.CharactersApi;
 import com.eveonline.api.exceptions.ApiException;
 import com.google.common.base.Preconditions;
 import org.junit.Test;
-import org.onsteroids.eve.api.provider.AbstractApiProvider;
+import org.onsteroids.eve.api.provider.AbstractApiTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author Tobias Sarnowski
  */
-public class LimitedCharacters extends AbstractApiProvider {
+public class LimitedCharacters extends AbstractApiTest {
 	private static final Logger LOG = LoggerFactory.getLogger(LimitedCharacters.class);
 
 	@Test

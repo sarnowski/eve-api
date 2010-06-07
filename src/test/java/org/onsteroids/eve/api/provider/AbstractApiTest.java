@@ -20,12 +20,12 @@ import java.util.Properties;
 /**
  * @author Tobias Sarnowski
  */
-public abstract class AbstractApiProvider {
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractApiProvider.class);
+public abstract class AbstractApiTest {
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractApiTest.class);
 
 	private final Api api;
 
-	protected AbstractApiProvider() {
+	protected AbstractApiTest() {
 		api = Api.createDefaultTranquilityApi();
 	}
 
