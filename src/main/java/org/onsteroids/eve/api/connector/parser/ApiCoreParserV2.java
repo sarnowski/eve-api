@@ -19,6 +19,7 @@ package org.onsteroids.eve.api.connector.parser;
 import com.eveonline.api.ApiKey;
 import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.exceptions.ApiResultException;
+import org.onsteroids.eve.api.DateUtility;
 import org.onsteroids.eve.api.XmlUtility;
 import org.onsteroids.eve.api.connector.ApiCoreParser;
 import org.onsteroids.eve.api.connector.XmlApiResult;
@@ -29,10 +30,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import java.net.URI;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Tobias Sarnowski
@@ -42,7 +42,6 @@ class ApiCoreParserV2 implements ApiCoreParser {
 
 	private final static String API_VERSION = "2";
 
-	private final DateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	@Override
 	public XmlApiResult call(Document xmlDoc, final String xmlPath, final ApiKey key, final Map<String, String> parameters, final URI serverUri) throws ApiException {
@@ -66,20 +65,20 @@ class ApiCoreParserV2 implements ApiCoreParser {
 			// get current server time
 			final Date serverCurrentTime;
 			String currentTimeText = xml.getContentOf("currentTime");
-			serverCurrentTime = dateParser.parse(currentTimeText);
+			serverCurrentTime = DateUtility.parse(currentTimeText);
 			LOG.trace("Current server time: {}", serverCurrentTime);
 
 			// get cache times
 			final Date serverCachedUntil;
 			String currentCachedText = xml.getContentOf("cachedUntil");
-			serverCachedUntil = dateParser.parse(currentCachedText);
+			serverCachedUntil = DateUtility.parse(currentCachedText);
 			LOG.trace("Cached until: {}", serverCachedUntil);
 
 			final Date now = new Date();
-			long timeDiff = now.getTime() - serverCurrentTime.getTime();
+			final long timeDiff = serverCurrentTime.getTime() + now.getTime();
 			LOG.trace("Time difference: {} seconds", timeDiff);
 
-			final Date cachedUntil = new Date(serverCachedUntil.getTime() + timeDiff);
+			final Date cachedUntil = DateUtility.withTimeDifference(serverCachedUntil, timeDiff, TimeUnit.MILLISECONDS);
 			LOG.trace("Locally cached until: {}", cachedUntil);
 
 			// error message?
@@ -98,30 +97,42 @@ class ApiCoreParserV2 implements ApiCoreParser {
 
 			// return the results
 			return new XmlApiResult() {
+                @Override
 				public Node getResult() {
 					return result;
 				}
 
-				public Date getDateCreated() {
+                @Override
+                public long getTimeDifference() {
+                    return timeDiff;
+                }
+
+                @Override
+                public Date getDateCreated() {
 					return now;
 				}
 
+                @Override
 				public Date getCachedUntil() {
 					return cachedUntil;
 				}
 
+                @Override
 				public String getRequestedXmlPath() {
 					return xmlPath;
 				}
 
+                @Override
 				public ApiKey getUsedApiKey() {
 					return key;
 				}
 
+                @Override
 				public Map<String, String> getUsedParameters() {
 					return parameters;
 				}
 
+                @Override
 				public URI getUsedServerUri() {
 					return serverUri;
 				}

@@ -18,25 +18,22 @@
  * (c) 2010 Tobias Sarnowski
  * All rights reserved.
  */
-package org.onsteroids.eve.api.provider;
+package org.onsteroids.eve.api.provider.map;
 
+import com.eveonline.api.map.JumpsApi;
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import org.onsteroids.eve.api.provider.account.AccountModule;
-import org.onsteroids.eve.api.provider.map.MapModule;
-import org.onsteroids.eve.api.provider.server.ServerModule;
+import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Tobias Sarnowski
  */
-public class ApiServicesModule implements Module {
-	private static final Logger LOG = LoggerFactory.getLogger(ApiServicesModule.class);
+public final class MapModule implements Module {
+	private static final Logger LOG = LoggerFactory.getLogger(MapModule.class);
 
 	public void configure(Binder binder) {
-		binder.install(new AccountModule());
-        binder.install(new MapModule());
-		binder.install(new ServerModule());
+		binder.bind(JumpsApi.class).to(JumpsApiImpl.class).in(Singleton.class);
 	}
 }

@@ -32,5 +32,12 @@ public interface XmlApiResult extends ApiResult {
 	 * @return returns the &lt;result&gt; node of the api response
 	 */
 	Node getResult();
+        
+    /**
+     * getTimeDifference = serverTime - localTime
+     *
+     * @return the time difference from server to local in milliseconds
+     */
+    long getTimeDifference();
 
 }

@@ -39,6 +39,7 @@ public abstract class SerializableApiResult implements ApiResult, Serializable {
 
 	private Date created;
 	private Date cachedUntil;
+    private long timeDifference;
 
 	private String requestedXmlPath;
 	private ApiKey usedApiKey;
@@ -51,6 +52,7 @@ public abstract class SerializableApiResult implements ApiResult, Serializable {
 
 		created = xmlApiResult.getDateCreated();
 		cachedUntil = xmlApiResult.getCachedUntil();
+        timeDifference = xmlApiResult.getTimeDifference();
 		requestedXmlPath = xmlApiResult.getRequestedXmlPath();
 		usedApiKey = xmlApiResult.getUsedApiKey();
 		usedParameters = xmlApiResult.getUsedParameters();
@@ -74,6 +76,10 @@ public abstract class SerializableApiResult implements ApiResult, Serializable {
 	@Override
 	public Date getCachedUntil() {
 		return cachedUntil;
+	}
+    
+	public long getTimeDifference() {
+		return timeDifference;
 	}
 
 	@Override
