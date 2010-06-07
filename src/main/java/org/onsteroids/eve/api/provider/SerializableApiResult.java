@@ -46,6 +46,13 @@ public abstract class SerializableApiResult implements ApiResult, Serializable {
 	private Map<String,String> usedParameters;
 	private URI usedServerUri;
 
+	public SerializableApiResult() {
+	}
+
+	public SerializableApiResult(XmlApiResult xmlApiResult, Node node) throws ApiException {
+		processCoreResult(xmlApiResult, node);
+	}
+
 	void processCoreResult(XmlApiResult xmlApiResult, Node node) throws ApiException {
 		Preconditions.checkNotNull(xmlApiResult, "ApiResult");
 		Preconditions.checkNotNull(node, "Node");

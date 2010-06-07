@@ -70,13 +70,12 @@ public class AllianceListImpl extends SerializableApiListResult<AllianceListImpl
                 throw new InternalApiException(e);
             }
 
-	        corporations = new SerializableApiListResult<AllianceListImpl.CorporationImpl>() {
+	        corporations = new SerializableApiListResult<AllianceListImpl.CorporationImpl>(xmlApiResult, xmlResult) {
                 @Override
                 public Class<? extends CorporationImpl> getRowDefinition() {
                     return AllianceListImpl.CorporationImpl.class;
                 }
             };
-	        corporations.processResult(xmlApiResult, xmlResult);
         }
 
         @Override

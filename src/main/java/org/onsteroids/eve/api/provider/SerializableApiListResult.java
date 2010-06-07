@@ -47,7 +47,15 @@ public abstract class SerializableApiListResult<S extends SerializableApiResult>
 	private static final Logger LOG = LoggerFactory.getLogger(SerializableApiListResult.class);
 
 	private List<S> results;
-	
+
+
+	public SerializableApiListResult() {
+	}
+
+	public SerializableApiListResult(XmlApiResult xmlApiResult, Node xmlResult) throws ApiException {
+		processCoreResult(xmlApiResult, xmlResult);
+	}
+
 	@Override
 	public void processResult(XmlApiResult xmlApiResult, Node xmlResult) throws ApiException {
 		List<S> results = Lists.newArrayList();
