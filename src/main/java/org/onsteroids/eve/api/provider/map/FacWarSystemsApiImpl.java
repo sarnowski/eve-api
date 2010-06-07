@@ -14,28 +14,31 @@
  * limitations under the License.
  */
 
-/**
- * (c) 2010 Tobias Sarnowski
- * All rights reserved.
- */
 package org.onsteroids.eve.api.provider.map;
 
+import com.eveonline.api.exceptions.ApiException;
+import com.eveonline.api.map.FacWarSystems;
 import com.eveonline.api.map.FacWarSystemsApi;
-import com.eveonline.api.map.JumpsApi;
-import com.google.inject.Binder;
-import com.google.inject.Module;
-import com.google.inject.Singleton;
+import com.google.inject.Inject;
+import org.onsteroids.eve.api.cache.ApiCache;
+import org.onsteroids.eve.api.connector.ApiConnection;
+import org.onsteroids.eve.api.provider.AbstractApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Tobias Sarnowski
  */
-public final class MapModule implements Module {
-	private static final Logger LOG = LoggerFactory.getLogger(MapModule.class);
+final class FacWarSystemsApiImpl extends AbstractApiService implements FacWarSystemsApi {
+    private static final Logger LOG = LoggerFactory.getLogger(FacWarSystemsApiImpl.class);
 
-	public void configure(Binder binder) {
-        binder.bind(FacWarSystemsApi.class).to(FacWarSystemsApiImpl.class).in(Singleton.class);
-		binder.bind(JumpsApi.class).to(JumpsApiImpl.class).in(Singleton.class);
-	}
+    @Inject
+    public FacWarSystemsApiImpl(ApiConnection apiConnection, ApiCache apiCache) {
+        super(apiConnection, apiCache);
+    }
+
+    @Override
+    public FacWarSystems getFactionWarfareSystems() throws ApiException {
+        return call(FacWarSystemsImpl.class, FacWarSystemsApi.XMLPATH);
+    }
 }
