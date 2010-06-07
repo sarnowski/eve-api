@@ -52,20 +52,31 @@ public class AllianceListImpl extends SerializableApiListResult<AllianceListImpl
         private long executorCorporationId;
         private int memberCount;
         private Date startDate;
+	    private SerializableApiListResult<AllianceListImpl.CorporationImpl> corporations;
+
 
         @Override
         public void processResult(XmlApiResult xmlApiResult, Node xmlResult) throws ApiException {
             XmlUtility xml = new XmlUtility(xmlResult);
+	        
             id = Long.parseLong(xml.getAttribute("allianceID"));
-            name = xml.getAttribute("allianceName");
-            shortName = xml.getAttribute("allianceShortName");
-            executorCorporationId = Long.parseLong(xml.getAttribute("executorCorporationID"));
+            name = xml.getAttribute("name");
+            shortName = xml.getAttribute("shortName");
+            executorCorporationId = Long.parseLong(xml.getAttribute("executorCorpID"));
             memberCount = Integer.parseInt(xml.getAttribute("memberCount"));
             try {
                 startDate = DateUtility.parse(xml.getAttribute("startDate"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
             } catch (ParseException e) {
                 throw new InternalApiException(e);
             }
+
+	        corporations = new SerializableApiListResult<AllianceListImpl.CorporationImpl>() {
+                @Override
+                public Class<? extends CorporationImpl> getRowDefinition() {
+                    return AllianceListImpl.CorporationImpl.class;
+                }
+            };
+	        corporations.processResult(xmlApiResult, xmlResult);
         }
 
         @Override
@@ -100,12 +111,7 @@ public class AllianceListImpl extends SerializableApiListResult<AllianceListImpl
 
         @Override
         public ApiListResult<? extends AllianceList.Corporation> getCorporations() {
-            return new SerializableApiListResult<AllianceListImpl.CorporationImpl>() {
-                @Override
-                public Class<? extends CorporationImpl> getRowDefinition() {
-                    return AllianceListImpl.CorporationImpl.class;
-                }
-            };
+            return corporations;
         }
     }
 
@@ -128,12 +134,12 @@ public class AllianceListImpl extends SerializableApiListResult<AllianceListImpl
 
         @Override
         public long getId() {
-            return 0;
+            return id;
         }
 
         @Override
         public Date getStartDate() {
-            return null;
+            return startDate;
         }
     }
 }

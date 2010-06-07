@@ -34,8 +34,7 @@ import org.slf4j.LoggerFactory;
 public class NokAllianceList extends AbstractApiTest {
 	private static final Logger LOG = LoggerFactory.getLogger(NokAllianceList.class);
 
-    // TODO fix this!
-	@Test(expected = NullPointerException.class)
+	@Test
 	public void retrieveAlliances() throws ApiException {
 		AllianceListApi allianceListApi = getService(AllianceListApi.class);
         AllianceList<AllianceList.Alliance> allianceList = allianceListApi.getAllianceList();
