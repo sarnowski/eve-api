@@ -14,31 +14,23 @@
  * limitations under the License.
  */
 
-/**
- * (c) 2010 Tobias Sarnowski
- * All rights reserved.
- */
-package org.onsteroids.eve.api.provider;
+package org.onsteroids.eve.api.provider.eve;
 
+import com.eveonline.api.eve.AllianceListApi;
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import org.onsteroids.eve.api.provider.account.AccountModule;
-import org.onsteroids.eve.api.provider.eve.EveModule;
-import org.onsteroids.eve.api.provider.map.MapModule;
-import org.onsteroids.eve.api.provider.server.ServerModule;
+import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author Tobias Sarnowski
  */
-public class ApiServicesModule implements Module {
-	private static final Logger LOG = LoggerFactory.getLogger(ApiServicesModule.class);
+public class EveModule implements Module {
+    private static final Logger LOG = LoggerFactory.getLogger(EveModule.class);
 
-	public void configure(Binder binder) {
-		binder.install(new AccountModule());
-        binder.install(new EveModule());
-        binder.install(new MapModule());
-		binder.install(new ServerModule());
-	}
+    @Override
+    public void configure(Binder binder) {
+        binder.bind(AllianceListApi.class).to(AllianceListApiImpl.class).in(Singleton.class);
+    }
 }

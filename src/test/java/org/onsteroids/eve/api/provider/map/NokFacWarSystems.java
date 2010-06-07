@@ -35,7 +35,7 @@ public class NokFacWarSystems extends AbstractApiTest {
 	private static final Logger LOG = LoggerFactory.getLogger(NokFacWarSystems.class);
 
 	@Test
-	public void retrieveJumps() throws ApiException {
+	public void retrieveFacWarSystems() throws ApiException {
 		FacWarSystemsApi facWarSystemsApi = getService(FacWarSystemsApi.class);
         FacWarSystems<FacWarSystems.SolarSystem> solarSystems = facWarSystemsApi.getFactionWarfareSystems();
 
