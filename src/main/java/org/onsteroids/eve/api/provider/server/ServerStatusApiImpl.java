@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
-class ServerStatusApiImpl extends AbstractApiService implements ServerStatusApi {
+final class ServerStatusApiImpl extends AbstractApiService implements ServerStatusApi {
 	private static final Logger LOG = LoggerFactory.getLogger(ServerStatusApiImpl.class);
 
 	@Inject

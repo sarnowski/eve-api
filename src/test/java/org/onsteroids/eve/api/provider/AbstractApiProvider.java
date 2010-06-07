@@ -60,10 +60,10 @@ public abstract class AbstractApiProvider {
 				return Integer.parseInt(properties.getProperty("userID"));
 			}
 
-			@Override
-			public String getKey() {
-				return properties.getProperty("apiKey");
-			}
+            @Override
+            public String getApiKey() {
+                return properties.getProperty("apiKey");
+            }
 		};
 	}
 }

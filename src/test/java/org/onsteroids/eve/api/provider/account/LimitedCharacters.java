@@ -7,6 +7,7 @@ package org.onsteroids.eve.api.provider.account;
 import com.eveonline.api.account.Characters;
 import com.eveonline.api.account.CharactersApi;
 import com.eveonline.api.exceptions.ApiException;
+import com.google.common.base.Preconditions;
 import org.junit.Test;
 import org.onsteroids.eve.api.provider.AbstractApiProvider;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class LimitedCharacters extends AbstractApiProvider {
 	@Test
 	public void retrieveCharacters() throws ApiException {
 		CharactersApi charactersApi = getService(CharactersApi.class);
-		List<Characters.Character> characters = charactersApi.getCharacters(getLimitedApiKey());
+		List<Characters.Character> characters = Preconditions.checkNotNull(charactersApi.getCharacters(getLimitedApiKey()), "Characters");
 
 		for (Characters.Character character: characters) {
 			LOG.info("Found Character:  {} ({}) [{} ({})]", new Object[]{

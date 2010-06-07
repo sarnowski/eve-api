@@ -61,7 +61,6 @@ public abstract class SerializableApiListResult<S extends SerializableApiResult>
 	}
 
 	/**
-	 * @param <R> an implementation
 	 * @return the class which defines the implementation
 	 */
 	public abstract Class<? extends S> getRowDefinition();
@@ -84,7 +83,7 @@ public abstract class SerializableApiListResult<S extends SerializableApiResult>
 
 	@Override
 	public Iterator<S> iterator() {
-		return null;
+		return results.iterator();
 	}
 
 	@Override

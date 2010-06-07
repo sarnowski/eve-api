@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 /**
  * @author Tobias Sarnowski
  */
-class ServerStatusImpl extends SerializableApiResult implements ServerStatus {
+public final class ServerStatusImpl extends SerializableApiResult implements ServerStatus {
 	private static final Logger LOG = LoggerFactory.getLogger(ServerStatusImpl.class);
 
 	private boolean isServerOpen;

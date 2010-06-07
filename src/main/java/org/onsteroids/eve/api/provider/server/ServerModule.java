@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
-public class ServerModule implements Module {
+public final class ServerModule implements Module {
 	private static final Logger LOG = LoggerFactory.getLogger(ServerModule.class);
 
 	public void configure(Binder binder) {

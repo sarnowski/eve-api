@@ -71,7 +71,7 @@ public abstract class AbstractApiService {
 	public <T extends SerializableApiResult> T call(Class<T> resultType, String xmlPath, ApiKey key, Map<String,String> parameters) throws ApiException {
 		T cached = apiCache.getApiResult(resultType, apiConnection.getServerUri(), ServerStatusApi.XMLPATH);
 		if (cached == null) {
-			XmlApiResult result = apiConnection.call(xmlPath);
+			XmlApiResult result = apiConnection.call(xmlPath, key, parameters);
 			try {
 				cached = resultType.newInstance();
 			} catch (InstantiationException e) {

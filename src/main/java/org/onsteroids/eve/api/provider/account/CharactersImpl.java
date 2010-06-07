@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 /**
  * @author Tobias Sarnowski
  */
-class CharactersImpl extends SerializableApiListResult<CharactersImpl.CharacterImpl> implements Characters {
+public final class CharactersImpl extends SerializableApiListResult<CharactersImpl.CharacterImpl> implements Characters<CharactersImpl.CharacterImpl> {
 	private static final Logger LOG = LoggerFactory.getLogger(CharactersImpl.class);
 	
 

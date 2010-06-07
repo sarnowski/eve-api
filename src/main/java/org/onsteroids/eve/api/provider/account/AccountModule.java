@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
-public class AccountModule implements Module {
+public final class AccountModule implements Module {
 	private static final Logger LOG = LoggerFactory.getLogger(AccountModule.class);
 
 	@Override

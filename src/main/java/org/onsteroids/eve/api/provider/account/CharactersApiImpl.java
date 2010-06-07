@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
-class CharactersApiImpl extends AbstractApiService implements CharactersApi {
+final class CharactersApiImpl extends AbstractApiService implements CharactersApi {
 	private static final Logger LOG = LoggerFactory.getLogger(CharactersApiImpl.class);
 
 	@Inject
