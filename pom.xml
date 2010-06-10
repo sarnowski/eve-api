@@ -8,6 +8,9 @@
 	<artifactId>eve-api</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
+	<name>EVE on steroids: API implementation</name>
+	<description>This is an EVE-Online API library for easy, high performant and clusterable usage of the EVE-Online webservices.</description>
+
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -24,6 +27,18 @@
 		</license>
 	</licenses>
 
+	<developers>
+		<developer>
+			<name>Tobias Sarnowski</name>
+			<email>sarnowski@new-thoughts.org</email>
+			<roles>
+				<role>Project Leader</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+
 	<repositories>
 		<repository>
 			<id>infinispan</id>
@@ -35,10 +50,11 @@
 	</repositories>
 
 	<dependencies>
+		<!-- the interfaces which are implemented by this package -->
 		<dependency>
 			<groupId>org.onsteroids.eve</groupId>
 			<artifactId>eve-interfaces</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>1.0-tyrannis-api-SNAPSHOT</version>
 		</dependency>
 
 		<!-- core -->
@@ -47,11 +63,6 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.5.2</version>
 		</dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-            <version>1.5.2</version>
-        </dependency>
 		<!-- not nessecary until guice is release with JSR-330 compatibility
 		     see: http://github.com/sarnowski/eve-api/issues#issue/1
 
@@ -97,7 +108,14 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>0.9.9</version>
+			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>1.5.2</version>
+			<scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -203,13 +221,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>org.onsteroids.eve</groupId>
-						<artifactId>eve-api</artifactId>
-						<version>${project.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
