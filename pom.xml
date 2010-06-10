@@ -11,6 +11,8 @@
 	<name>EVE on steroids: API implementation</name>
 	<description>This is an EVE-Online API library for easy, high performant and clusterable usage of the EVE-Online webservices.</description>
 
+	<url>http://github.com/sarnowski/eve-api</url>
+
     <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
