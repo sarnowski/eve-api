@@ -31,6 +31,6 @@ public class ImgServicesModule implements Module {
 
 	@Override
 	public void configure(Binder binder) {
-		binder.bind(CharacterPortraitApi.class).to(CharacterPortraitApiImpl.class).in(Singleton.class);
+		binder.bind(CharacterPortraitApi.class).to(CharacterPortraitApiImpl.class);
 	}
 }

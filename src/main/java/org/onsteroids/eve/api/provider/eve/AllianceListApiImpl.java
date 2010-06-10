@@ -20,6 +20,7 @@ import com.eveonline.api.eve.AllianceList;
 import com.eveonline.api.eve.AllianceListApi;
 import com.eveonline.api.exceptions.ApiException;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.onsteroids.eve.api.connector.ApiConnection;
 import org.onsteroids.eve.api.provider.AbstractApiService;
@@ -29,6 +30,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
+@Singleton
 public class AllianceListApiImpl extends AbstractApiService implements AllianceListApi {
     private static final Logger LOG = LoggerFactory.getLogger(AllianceListApiImpl.class);
 

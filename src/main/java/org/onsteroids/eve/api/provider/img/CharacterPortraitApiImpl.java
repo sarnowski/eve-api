@@ -22,6 +22,7 @@ import com.eveonline.api.img.CharacterPortraitApi;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -42,6 +43,7 @@ import java.util.List;
 /**
  * @author Tobias Sarnowski
  */
+@Singleton
 public class CharacterPortraitApiImpl implements CharacterPortraitApi {
 	private static final Logger LOG = LoggerFactory.getLogger(CharacterPortraitApiImpl.class);
 

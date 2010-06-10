@@ -35,7 +35,7 @@ public final class MapServicesModule implements Module {
 	private static final Logger LOG = LoggerFactory.getLogger(MapServicesModule.class);
 
 	public void configure(Binder binder) {
-        binder.bind(FacWarSystemsApi.class).to(FacWarSystemsApiImpl.class).in(Singleton.class);
-		binder.bind(JumpsApi.class).to(JumpsApiImpl.class).in(Singleton.class);
+        binder.bind(FacWarSystemsApi.class).to(FacWarSystemsApiImpl.class);
+		binder.bind(JumpsApi.class).to(JumpsApiImpl.class);
 	}
 }

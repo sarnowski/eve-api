@@ -28,6 +28,9 @@
 		<repository>
 			<id>infinispan</id>
 			<url>https://repository.jboss.org/nexus/content/groups/public</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 
@@ -49,6 +52,15 @@
             <artifactId>log4j-over-slf4j</artifactId>
             <version>1.5.2</version>
         </dependency>
+		<!-- not nessecary until guice is release with JSR-330 compatibility
+		     see: http://github.com/sarnowski/eve-api/issues#issue/1
+
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		-->
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>

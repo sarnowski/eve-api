@@ -20,6 +20,7 @@ import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.map.FacWarSystems;
 import com.eveonline.api.map.FacWarSystemsApi;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.onsteroids.eve.api.connector.ApiConnection;
 import org.onsteroids.eve.api.provider.AbstractApiService;
@@ -29,6 +30,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
+@Singleton
 final class FacWarSystemsApiImpl extends AbstractApiService implements FacWarSystemsApi {
     private static final Logger LOG = LoggerFactory.getLogger(FacWarSystemsApiImpl.class);
 

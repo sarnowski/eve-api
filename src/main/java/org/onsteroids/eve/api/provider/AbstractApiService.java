@@ -23,7 +23,6 @@ package org.onsteroids.eve.api.provider;
 import com.eveonline.api.ApiKey;
 import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.server.ServerStatusApi;
-import com.google.inject.Inject;
 import org.onsteroids.eve.api.InternalApiException;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.onsteroids.eve.api.connector.ApiConnection;
@@ -41,7 +40,6 @@ public abstract class AbstractApiService {
 	private ApiConnection apiConnection;
 	private ApiCache apiCache;
 
-	@Inject
 	public AbstractApiService(ApiConnection apiConnection, ApiCache apiCache) {
 		this.apiConnection = apiConnection;
 		this.apiCache = apiCache;

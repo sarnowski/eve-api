@@ -35,6 +35,6 @@ public final class AccountServicesModule implements Module {
 
 	@Override
 	public void configure(Binder binder) {
-		binder.bind(CharactersApi.class).to(CharactersApiImpl.class).in(Scopes.NO_SCOPE);
+		binder.bind(CharactersApi.class).to(CharactersApiImpl.class);
 	}
 }

@@ -23,7 +23,6 @@ package org.onsteroids.eve.api.provider.server;
 import com.eveonline.api.server.ServerStatusApi;
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +33,6 @@ public final class ServerServicesModule implements Module {
 	private static final Logger LOG = LoggerFactory.getLogger(ServerServicesModule.class);
 
 	public void configure(Binder binder) {
-		binder.bind(ServerStatusApi.class).to(ServerStatusApiImpl.class).in(Singleton.class);
+		binder.bind(ServerStatusApi.class).to(ServerStatusApiImpl.class);
 	}
 }
