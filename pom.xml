@@ -6,7 +6,7 @@
 
 	<groupId>org.onsteroids.eve</groupId>
 	<artifactId>eve-api</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0-tyrannis-api-SNAPSHOT</version>
 
 	<name>EVE on steroids: API implementation</name>
 	<description>This is an EVE-Online API library for easy, high performant and clusterable usage of the EVE-Online webservices.</description>
