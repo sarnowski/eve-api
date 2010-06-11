@@ -49,6 +49,13 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+        <repository>
+            <id>cosmocode-public-releases</id>
+            <url>http://mvn.cosmocode.de/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
 	</repositories>
 
 	<dependencies>
@@ -65,19 +72,15 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.5.2</version>
 		</dependency>
-		<!-- not nessecary until guice is release with JSR-330 compatibility
-		     see: http://github.com/sarnowski/eve-api/issues#issue/1
-
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-		-->
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>2.0</version>
+			<version>2.1-r1168</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
