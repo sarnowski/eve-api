@@ -36,8 +36,8 @@ public class PooledHttpApiConnectionModule implements Module {
 	private static final Logger LOG = LoggerFactory.getLogger(PooledHttpApiConnectionModule.class);
 
 	public void configure(Binder binder) {
-		binder.bind(ApiConnection.class).to(PooledHttpApiConnection.class).in(Singleton.class);
-		binder.bind(HttpClient.class).annotatedWith(ApiServer.class).toProvider(PooledHttpApiConnection.class).in(Singleton.class);
+		binder.bind(ApiConnection.class).to(PooledHttpApiConnection.class);
+		binder.bind(HttpClient.class).annotatedWith(ApiServer.class).toProvider(PooledHttpApiConnection.class);
 	}
 
 }

@@ -24,9 +24,6 @@ import com.eveonline.api.ApiKey;
 import com.eveonline.api.exceptions.ApiException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.name.Named;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -56,6 +53,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.inject.Singleton;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
@@ -66,7 +66,8 @@ import java.util.Map;
 /**
  * @author Tobias Sarnowski
  */
-class PooledHttpApiConnection implements ApiConnection, Provider<HttpClient> {
+@Singleton
+final class PooledHttpApiConnection implements ApiConnection, Provider<HttpClient> {
 	private static final Logger LOG = LoggerFactory.getLogger(PooledHttpApiConnection.class);
 
 	// xml parser
@@ -88,12 +89,6 @@ class PooledHttpApiConnection implements ApiConnection, Provider<HttpClient> {
 	public PooledHttpApiConnection(@ApiServer URI serverUri, ApiCoreParser apiCoreParser) {
 		this.serverUri = serverUri;
 		this.apiCoreParser = apiCoreParser;
-	}
-
-	@Inject(optional = true)
-	public void setMaxConnections(
-			@Named(PooledHttpApiConnectionConfig.MAX_CONNECTIONS) int maxConnections) {
-		this.maxConnections = maxConnections;
 	}
 
 

@@ -29,6 +29,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import javax.inject.Singleton;
 import java.net.URI;
 import java.util.Date;
 import java.util.Map;
@@ -37,7 +38,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Tobias Sarnowski
  */
-class ApiCoreParserV2 implements ApiCoreParser {
+@Singleton
+final class ApiCoreParserV2 implements ApiCoreParser {
 	private static final Logger LOG = LoggerFactory.getLogger(ApiCoreParserV2.class);
 
 	private final static String API_VERSION = "2";

@@ -31,6 +31,6 @@ public class InfinispanApiCacheModule implements Module {
 
 	@Override
 	public void configure(Binder binder) {
-		binder.bind(ApiCache.class).to(InfinispanApiCache.class).in(Singleton.class);
+		binder.bind(ApiCache.class).to(InfinispanApiCache.class);
 	}
 }

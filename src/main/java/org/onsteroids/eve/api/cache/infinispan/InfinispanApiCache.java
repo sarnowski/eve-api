@@ -24,6 +24,7 @@ import org.onsteroids.eve.api.cache.ApiCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Singleton;
 import java.io.Serializable;
 import java.net.URI;
 import java.util.Map;
@@ -32,7 +33,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Tobias Sarnowski
  */
-class InfinispanApiCache implements ApiCache {
+@Singleton
+final class InfinispanApiCache implements ApiCache {
 	private static final Logger LOG = LoggerFactory.getLogger(InfinispanApiCache.class);
 
 	//private final EmbeddedCacheManager cacheManager;
@@ -40,8 +42,6 @@ class InfinispanApiCache implements ApiCache {
 
 	@Inject
 	public InfinispanApiCache(@Api Cache cache) {
-		//cacheManager = new DefaultCacheManager();
-		//cache = cacheManager.getCache();
         this.cache = cache;
 	}
 

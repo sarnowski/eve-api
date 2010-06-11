@@ -36,7 +36,7 @@ import java.net.URL;
  *
  * @author Tobias Sarnowski
  */
-public class Api {
+public final class Api {
 	private static final Logger LOG = LoggerFactory.getLogger(Api.class);
 
 	private final Injector injector;

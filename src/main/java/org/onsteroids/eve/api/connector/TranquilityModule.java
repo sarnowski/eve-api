@@ -33,7 +33,7 @@ import java.net.URISyntaxException;
  *
  * @author Tobias Sarnowski
  */
-public class TranquilityModule implements Module {
+public final class TranquilityModule implements Module {
 	private static final Logger LOG = LoggerFactory.getLogger(TranquilityModule.class);
 
 	private static final String TRANQUILITY_URL = "http://api.eve-online.com";

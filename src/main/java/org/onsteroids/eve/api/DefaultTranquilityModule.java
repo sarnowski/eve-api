@@ -37,7 +37,7 @@ import java.net.URL;
 /**
  * @author Tobias Sarnowski
  */
-public class DefaultTranquilityModule implements Module {
+public final class DefaultTranquilityModule implements Module {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultTranquilityModule.class);
 
     private final URL configuration;

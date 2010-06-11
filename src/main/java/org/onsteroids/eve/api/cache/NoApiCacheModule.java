@@ -30,6 +30,6 @@ public class NoApiCacheModule implements Module {
 
 	@Override
 	public void configure(Binder binder) {
-		binder.bind(ApiCache.class).to(NoApiCache.class).in(Singleton.class);
+		binder.bind(ApiCache.class).to(NoApiCache.class);
 	}
 }

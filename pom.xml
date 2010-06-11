@@ -73,19 +73,24 @@
 			<version>1.5.2</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>r05</version>
+		</dependency>
+
+        <!-- javaee6 will provide this -->
+        <dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
+            <scope>provided</scope>
 		</dependency>
+        <!-- not nessecary in javaee6 applications -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<version>2.1-r1168</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>r05</version>
+            <scope>provided</scope>
 		</dependency>
 
 		<!-- pooled http connections -->

@@ -19,13 +19,14 @@ package org.onsteroids.eve.api.provider.map;
 import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.map.FacWarSystems;
 import com.eveonline.api.map.FacWarSystemsApi;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.onsteroids.eve.api.connector.ApiConnection;
 import org.onsteroids.eve.api.provider.AbstractApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * @author Tobias Sarnowski

@@ -16,21 +16,23 @@
 
 package org.onsteroids.eve.api.cache.infinispan;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.infinispan.Cache;
 import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.inject.Singleton;
 import java.io.IOException;
 import java.net.URL;
 
 /**
  * @author Tobias Sarnowski
  */
-class InfinispanApiCacheConfigurator implements Provider<Cache> {
+@Singleton
+final class InfinispanApiCacheConfigurator implements Provider<Cache> {
     private static final Logger LOG = LoggerFactory.getLogger(InfinispanApiCacheConfigurator.class);
 
     private final EmbeddedCacheManager cacheManager;
@@ -42,6 +44,7 @@ class InfinispanApiCacheConfigurator implements Provider<Cache> {
     }
 
     @Override
+    @Singleton
     public Cache get() {
         return cacheManager.getCache();
     }

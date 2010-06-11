@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Tobias Sarnowski
  */
-public class InternalApiException extends ApiException {
+public final class InternalApiException extends ApiException {
 	private static final Logger LOG = LoggerFactory.getLogger(InternalApiException.class);
 
 	public InternalApiException(String message) {

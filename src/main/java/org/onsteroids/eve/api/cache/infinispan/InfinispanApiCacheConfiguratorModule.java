@@ -18,7 +18,6 @@ package org.onsteroids.eve.api.cache.infinispan;
 
 import com.google.inject.Binder;
 import com.google.inject.Module;
-import com.google.inject.Singleton;
 import org.infinispan.Cache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +46,6 @@ public final class InfinispanApiCacheConfiguratorModule implements Module {
         if (configurationFile != null) {
             binder.bind(URL.class).annotatedWith(Api.class).toInstance(configurationFile);
         }
-        binder.bind(Cache.class).annotatedWith(Api.class).toProvider(InfinispanApiCacheConfigurator.class).in(Singleton.class);
+        binder.bind(Cache.class).annotatedWith(Api.class).toProvider(InfinispanApiCacheConfigurator.class);
     }
 }

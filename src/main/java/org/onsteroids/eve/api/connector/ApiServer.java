@@ -20,8 +20,7 @@
  */
 package org.onsteroids.eve.api.connector;
 
-import com.google.inject.BindingAnnotation;
-
+import javax.inject.Qualifier;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -30,7 +29,7 @@ import java.lang.annotation.RetentionPolicy;
  *
  * @author Tobias Sarnowski
  */
-@BindingAnnotation
+@Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ApiServer {
 

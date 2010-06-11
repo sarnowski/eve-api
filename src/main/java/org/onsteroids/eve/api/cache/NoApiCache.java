@@ -21,13 +21,15 @@ import com.eveonline.api.ApiResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Singleton;
 import java.net.URI;
 import java.util.Map;
 
 /**
  * @author Tobias Sarnowski
  */
-class NoApiCache implements ApiCache {
+@Singleton
+final class NoApiCache implements ApiCache {
 	private static final Logger LOG = LoggerFactory.getLogger(NoApiCache.class);
 
 	@Override

@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Tobias Sarnowski
  */
-public class DateUtility {
+public final class DateUtility {
     private static final Logger LOG = LoggerFactory.getLogger(DateUtility.class);
 
     // CCPs date scheme
