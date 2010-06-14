@@ -18,12 +18,12 @@ package org.onsteroids.eve.api.cache.infinispan;
 
 import com.eveonline.api.ApiKey;
 import com.eveonline.api.ApiResult;
-import com.google.inject.Inject;
 import org.infinispan.Cache;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.Serializable;
 import java.net.URI;
