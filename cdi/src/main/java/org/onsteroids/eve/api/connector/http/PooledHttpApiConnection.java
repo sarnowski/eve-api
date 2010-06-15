@@ -53,6 +53,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
@@ -91,9 +92,8 @@ final class PooledHttpApiConnection implements ApiConnection, Provider<HttpClien
 		this.apiCoreParser = apiCoreParser;
 	}
 
-
-	@Override
-	public HttpClient get() {
+	@Produces    
+	public @ApiServer HttpClient get() {
 		if (httpClient == null) {
 			initializeHttpClient();
 		}
