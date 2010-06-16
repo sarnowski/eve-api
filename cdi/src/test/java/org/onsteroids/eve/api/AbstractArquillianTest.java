@@ -66,8 +66,8 @@ public abstract class AbstractArquillianTest {
 		}
 		return new DirectorApiKey() {
 			@Override
-			public int getUserId() {
-				return Integer.parseInt(properties.getProperty("userID"));
+			public long getUserId() {
+				return Long.parseLong(properties.getProperty("userID"));
 			}
 
             @Override

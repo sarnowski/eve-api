@@ -22,29 +22,35 @@ package org.onsteroids.eve.api.provider.server;
 
 import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.server.ServerStatus;
-import com.eveonline.api.server.ServerStatusApi;
-import org.onsteroids.eve.api.cache.ApiCache;
-import org.onsteroids.eve.api.connector.ApiConnection;
-import org.onsteroids.eve.api.provider.AbstractApiService;
+import org.onsteroids.eve.api.XmlUtility;
+import org.onsteroids.eve.api.connector.XmlApiResult;
+import org.onsteroids.eve.api.provider.SerializableApiResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import org.w3c.dom.Node;
 
 /**
  * @author Tobias Sarnowski
  */
-@Singleton
-final class ServerStatusApiImpl extends AbstractApiService implements ServerStatusApi {
-	private static final Logger LOG = LoggerFactory.getLogger(ServerStatusApiImpl.class);
+public final class DefaultServerStatus extends SerializableApiResult implements ServerStatus {
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultServerStatus.class);
 
-	@Inject
-	public ServerStatusApiImpl(ApiConnection apiConnection, ApiCache apiCache) {
-		super(apiConnection, apiCache);
+	private boolean isServerOpen;
+	private long onlinePlayers;
+
+	@Override
+	public void processResult(XmlApiResult xmlApiResult, Node xmlResult) throws ApiException {
+		XmlUtility xml = new XmlUtility(xmlResult);
+
+		isServerOpen = "True".equalsIgnoreCase(xml.getContentOf("serverOpen"));
+		onlinePlayers = Long.parseLong(xml.getContentOf("onlinePlayers"));
 	}
 
-	public ServerStatus getServerStatus() throws ApiException {
-		return call(ServerStatusImpl.class, ServerStatusApi.XMLPATH);
+	public boolean isServerOpen() {
+		return isServerOpen;
+	}
+
+	public long getOnlinePlayers() {
+		return onlinePlayers;
 	}
 }

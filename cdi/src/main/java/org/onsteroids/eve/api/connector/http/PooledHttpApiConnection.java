@@ -135,7 +135,7 @@ final class PooledHttpApiConnection implements ApiConnection {
 			List<NameValuePair> qparams = Lists.newArrayList();
 			if (key != null) {
 				LOG.trace("Using ApiKey {}", key);
-				qparams.add(new BasicNameValuePair("userID", Integer.toString(key.getUserId())));
+				qparams.add(new BasicNameValuePair("userID", Long.toString(key.getUserId())));
 				qparams.add(new BasicNameValuePair("apiKey", key.getApiKey()));
 			}
 			if (parameters != null) {

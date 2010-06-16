@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package org.onsteroids.eve.api.provider.eve;
+package org.onsteroids.eve.api.provider.map;
 
-import com.eveonline.api.eve.AllianceList;
-import com.eveonline.api.eve.AllianceListApi;
 import com.eveonline.api.exceptions.ApiException;
+import com.eveonline.api.map.FacWarSystems;
+import com.eveonline.api.map.FacWarSystemsApi;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.onsteroids.eve.api.connector.ApiConnection;
 import org.onsteroids.eve.api.provider.AbstractApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -33,16 +32,16 @@ import javax.inject.Singleton;
  * @author Tobias Sarnowski
  */
 @Singleton
-public class AllianceListApiImpl extends AbstractApiService implements AllianceListApi {
-    private static final Logger LOG = LoggerFactory.getLogger(AllianceListApiImpl.class);
+final class DefaultFacWarSystemsApi extends AbstractApiService implements FacWarSystemsApi {
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultFacWarSystemsApi.class);
 
     @Inject
-    public AllianceListApiImpl(Instance<ApiConnection> apiConnection, Instance<ApiCache> apiCache) {
-        super(apiConnection.get(), apiCache.get());
+    public DefaultFacWarSystemsApi(ApiConnection apiConnection, ApiCache apiCache) {
+        super(apiConnection, apiCache);
     }
 
     @Override
-    public AllianceList getAllianceList() throws ApiException {
-        return call(AllianceListImpl.class, AllianceListApi.XMLPATH);
+    public FacWarSystems getFactionWarfareSystems() throws ApiException {
+        return call(DefaultFacWarSystems.class, FacWarSystemsApi.XMLPATH);
     }
 }

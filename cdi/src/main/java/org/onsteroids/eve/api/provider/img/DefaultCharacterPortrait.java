@@ -27,14 +27,14 @@ import java.io.InputStream;
 /**
  * @author Tobias Sarnowski
  */
-public class CharacterPortraitImpl implements CharacterPortrait {
-	private static final Logger LOG = LoggerFactory.getLogger(CharacterPortraitImpl.class);
+public class DefaultCharacterPortrait implements CharacterPortrait {
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultCharacterPortrait.class);
 
 	private final InputStream inputStream;
 	private final long contentLength;
 	private final String contentType;
 
-	public CharacterPortraitImpl(HttpResponse response) throws IOException {
+	public DefaultCharacterPortrait(HttpResponse response) throws IOException {
 		inputStream = response.getEntity().getContent();
 		contentLength = response.getEntity().getContentLength();
 		contentType = response.getEntity().getContentType().getValue();

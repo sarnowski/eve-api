@@ -44,8 +44,8 @@ import java.util.List;
  * @author Tobias Sarnowski
  */
 @Singleton
-public class CharacterPortraitApiImpl implements CharacterPortraitApi {
-	private static final Logger LOG = LoggerFactory.getLogger(CharacterPortraitApiImpl.class);
+public class DefaultCharacterPortraitApi implements CharacterPortraitApi {
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultCharacterPortraitApi.class);
 
 	private static final String FORMAT = "image/jpeg";
 
@@ -54,7 +54,7 @@ public class CharacterPortraitApiImpl implements CharacterPortraitApi {
 
 
 	@Inject
-	public CharacterPortraitApiImpl(@ApiClient Provider<HttpClient> httpClientProvider) throws URISyntaxException {
+	public DefaultCharacterPortraitApi(@ApiClient Provider<HttpClient> httpClientProvider) throws URISyntaxException {
 		this.httpClientProvider = httpClientProvider;
 		serverUri = new URI(CharacterPortraitApi.URL);
 	}
@@ -99,7 +99,7 @@ public class CharacterPortraitApiImpl implements CharacterPortraitApi {
 		}
 
 		try {
-			return new CharacterPortraitImpl(response);
+			return new DefaultCharacterPortrait(response);
 		} catch (IOException e) {
 			throw new InternalApiException(e);
 		}

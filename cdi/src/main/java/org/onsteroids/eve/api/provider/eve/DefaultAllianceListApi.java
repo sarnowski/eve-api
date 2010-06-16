@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package org.onsteroids.eve.api.provider.map;
+package org.onsteroids.eve.api.provider.eve;
 
+import com.eveonline.api.eve.AllianceList;
+import com.eveonline.api.eve.AllianceListApi;
 import com.eveonline.api.exceptions.ApiException;
-import com.eveonline.api.map.Jumps;
-import com.eveonline.api.map.JumpsApi;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.onsteroids.eve.api.connector.ApiConnection;
 import org.onsteroids.eve.api.provider.AbstractApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -32,16 +33,16 @@ import javax.inject.Singleton;
  * @author Tobias Sarnowski
  */
 @Singleton
-final class JumpsApiImpl extends AbstractApiService implements JumpsApi {
-    private static final Logger LOG = LoggerFactory.getLogger(JumpsApiImpl.class);
+public class DefaultAllianceListApi extends AbstractApiService implements AllianceListApi {
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultAllianceListApi.class);
 
     @Inject
-    public JumpsApiImpl(ApiConnection apiConnection, ApiCache apiCache) {
-        super(apiConnection, apiCache);
+    public DefaultAllianceListApi(Instance<ApiConnection> apiConnection, Instance<ApiCache> apiCache) {
+        super(apiConnection.get(), apiCache.get());
     }
 
     @Override
-    public Jumps getJumps() throws ApiException {
-        return call(JumpsImpl.class, JumpsApi.XMLPATH);
+    public AllianceList getAllianceList() throws ApiException {
+        return call(DefaultAllianceList.class, AllianceListApi.XMLPATH);
     }
 }

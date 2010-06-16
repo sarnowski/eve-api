@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package org.onsteroids.eve.api.provider.map;
+/**
+ * (c) 2010 Tobias Sarnowski
+ * All rights reserved.
+ */
+package org.onsteroids.eve.api.provider.server;
 
 import com.eveonline.api.exceptions.ApiException;
-import com.eveonline.api.map.FacWarSystems;
-import com.eveonline.api.map.FacWarSystemsApi;
+import com.eveonline.api.server.ServerStatus;
+import com.eveonline.api.server.ServerStatusApi;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.onsteroids.eve.api.connector.ApiConnection;
 import org.onsteroids.eve.api.provider.AbstractApiService;
@@ -32,16 +36,15 @@ import javax.inject.Singleton;
  * @author Tobias Sarnowski
  */
 @Singleton
-final class FacWarSystemsApiImpl extends AbstractApiService implements FacWarSystemsApi {
-    private static final Logger LOG = LoggerFactory.getLogger(FacWarSystemsApiImpl.class);
+final class DefaultServerStatusApi extends AbstractApiService implements ServerStatusApi {
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultServerStatusApi.class);
 
-    @Inject
-    public FacWarSystemsApiImpl(ApiConnection apiConnection, ApiCache apiCache) {
-        super(apiConnection, apiCache);
-    }
+	@Inject
+	public DefaultServerStatusApi(ApiConnection apiConnection, ApiCache apiCache) {
+		super(apiConnection, apiCache);
+	}
 
-    @Override
-    public FacWarSystems getFactionWarfareSystems() throws ApiException {
-        return call(FacWarSystemsImpl.class, FacWarSystemsApi.XMLPATH);
-    }
+	public ServerStatus getServerStatus() throws ApiException {
+		return call(DefaultServerStatus.class, ServerStatusApi.XMLPATH);
+	}
 }

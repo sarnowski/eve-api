@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-/**
- * (c) 2010 Tobias Sarnowski
- * All rights reserved.
- */
-package org.onsteroids.eve.api.provider.account;
+package org.onsteroids.eve.api.provider.map;
 
-import com.eveonline.api.LimitedApiKey;
-import com.eveonline.api.account.Characters;
-import com.eveonline.api.account.CharactersApi;
 import com.eveonline.api.exceptions.ApiException;
+import com.eveonline.api.map.Jumps;
+import com.eveonline.api.map.JumpsApi;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.onsteroids.eve.api.connector.ApiConnection;
 import org.onsteroids.eve.api.provider.AbstractApiService;
@@ -37,16 +32,16 @@ import javax.inject.Singleton;
  * @author Tobias Sarnowski
  */
 @Singleton
-final class CharactersApiImpl extends AbstractApiService implements CharactersApi {
-	private static final Logger LOG = LoggerFactory.getLogger(CharactersApiImpl.class);
+final class DefaultJumpsApi extends AbstractApiService implements JumpsApi {
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultJumpsApi.class);
 
-	@Inject
-	public CharactersApiImpl(ApiConnection apiConnection, ApiCache apiCache) {
-		super(apiConnection, apiCache);
-	}
+    @Inject
+    public DefaultJumpsApi(ApiConnection apiConnection, ApiCache apiCache) {
+        super(apiConnection, apiCache);
+    }
 
-	@Override
-	public Characters getCharacters(LimitedApiKey key) throws ApiException {
-		return call(CharactersImpl.class, CharactersApi.XMLPATH, key);
-	}
+    @Override
+    public Jumps getJumps() throws ApiException {
+        return call(DefaultJumps.class, JumpsApi.XMLPATH);
+    }
 }

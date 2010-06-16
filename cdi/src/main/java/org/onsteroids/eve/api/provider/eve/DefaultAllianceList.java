@@ -36,12 +36,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Tobias Sarnowski
  */
-public class AllianceListImpl extends SerializableApiListResult<AllianceListImpl.AllianceImpl> implements AllianceList<AllianceListImpl.AllianceImpl> {
-    private static final Logger LOG = LoggerFactory.getLogger(AllianceListImpl.class);
+public class DefaultAllianceList extends SerializableApiListResult<DefaultAllianceList.AllianceImpl> implements AllianceList<DefaultAllianceList.AllianceImpl> {
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultAllianceList.class);
 
     @Override
     public Class<? extends AllianceImpl> getRowDefinition() {
-        return AllianceListImpl.AllianceImpl.class;
+        return DefaultAllianceList.AllianceImpl.class;
     }
 
     public static class AllianceImpl extends SerializableApiResult implements AllianceList.Alliance {
@@ -52,7 +52,7 @@ public class AllianceListImpl extends SerializableApiListResult<AllianceListImpl
         private long executorCorporationId;
         private int memberCount;
         private Date startDate;
-	    private SerializableApiListResult<AllianceListImpl.CorporationImpl> corporations;
+	    private SerializableApiListResult<DefaultAllianceList.CorporationImpl> corporations;
 
 
         @Override
@@ -70,10 +70,10 @@ public class AllianceListImpl extends SerializableApiListResult<AllianceListImpl
                 throw new InternalApiException(e);
             }
 
-	        corporations = new SerializableApiListResult<AllianceListImpl.CorporationImpl>(xmlApiResult, xmlResult) {
+	        corporations = new SerializableApiListResult<DefaultAllianceList.CorporationImpl>(xmlApiResult, xmlResult) {
                 @Override
                 public Class<? extends CorporationImpl> getRowDefinition() {
-                    return AllianceListImpl.CorporationImpl.class;
+                    return DefaultAllianceList.CorporationImpl.class;
                 }
             };
         }

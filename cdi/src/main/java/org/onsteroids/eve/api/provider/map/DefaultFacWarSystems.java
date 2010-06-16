@@ -17,9 +17,7 @@
 package org.onsteroids.eve.api.provider.map;
 
 import com.eveonline.api.exceptions.ApiException;
-import com.eveonline.api.map.Jumps;
-import org.onsteroids.eve.api.DateUtility;
-import org.onsteroids.eve.api.InternalApiException;
+import com.eveonline.api.map.FacWarSystems;
 import org.onsteroids.eve.api.XmlUtility;
 import org.onsteroids.eve.api.connector.XmlApiResult;
 import org.onsteroids.eve.api.provider.SerializableApiListResult;
@@ -28,34 +26,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
-import java.text.ParseException;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author Tobias Sarnowski
  */
-public final class JumpsImpl extends SerializableApiListResult<JumpsImpl.SolarSystemImpl> implements Jumps<JumpsImpl.SolarSystemImpl> {
-    private static final Logger LOG = LoggerFactory.getLogger(JumpsImpl.class);
-
-    private Date dataTime;
-
-    @Override
-    public void processResult(XmlApiResult xmlApiResult, Node xmlResult) throws ApiException {
-        super.processResult(xmlApiResult, xmlResult);
-
-        XmlUtility xml = new XmlUtility(xmlResult);
-        try {
-            dataTime = DateUtility.parse(xml.getContentOf("dataTime"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
-        } catch (ParseException e) {
-            throw new InternalApiException(e);
-        }
-    }
-
-    @Override
-    public Date getDataTime() {
-        return dataTime;
-    }
+public final class DefaultFacWarSystems extends SerializableApiListResult<DefaultFacWarSystems.SolarSystemImpl> implements FacWarSystems<DefaultFacWarSystems.SolarSystemImpl> {
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultFacWarSystems.class);
 
     @Override
     public Class<? extends SolarSystemImpl> getRowDefinition() {
@@ -63,17 +38,23 @@ public final class JumpsImpl extends SerializableApiListResult<JumpsImpl.SolarSy
     }
 
 
-    public static final class SolarSystemImpl extends SerializableApiResult implements Jumps.SolarSystem {
+    public static final class SolarSystemImpl extends SerializableApiResult implements FacWarSystems.SolarSystem {
 
         private long id;
-        private int jumps;
+        private String name;
+        private long occupyingFactionId;
+        private String occupyingFactionName;
+        private boolean contested;
 
         @Override
         public void processResult(XmlApiResult xmlApiResult, Node xmlResult) throws ApiException {
             XmlUtility xml = new XmlUtility(xmlResult);
 
             id = Long.parseLong(xml.getAttribute("solarSystemID"));
-            jumps = Integer.parseInt(xml.getAttribute("shipJumps"));
+            name = xml.getAttribute("solarSystemName");
+            occupyingFactionId = Long.parseLong(xml.getAttribute("occupyingFactionID"));
+            occupyingFactionName = xml.getAttribute("occupyingFactionName");
+            contested = "True".equalsIgnoreCase(xml.getAttribute("contested"));
         }
 
         @Override
@@ -82,8 +63,23 @@ public final class JumpsImpl extends SerializableApiListResult<JumpsImpl.SolarSy
         }
 
         @Override
-        public int getShipJumps() {
-            return jumps;
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public long getOccupyingFactionId() {
+            return occupyingFactionId;
+        }
+
+        @Override
+        public String getOccupyingFactionName() {
+            return occupyingFactionName;
+        }
+
+        @Override
+        public boolean isContested() {
+            return contested;
         }
     }
 }
