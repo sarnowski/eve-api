@@ -44,10 +44,10 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
+import org.onsteroids.eve.api.ApiServer;
 import org.onsteroids.eve.api.InternalApiException;
 import org.onsteroids.eve.api.connector.ApiConnection;
 import org.onsteroids.eve.api.connector.ApiCoreParser;
-import org.onsteroids.eve.api.connector.ApiServer;
 import org.onsteroids.eve.api.connector.XmlApiResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +55,6 @@ import org.w3c.dom.Document;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -68,7 +67,7 @@ import java.util.Map;
  * @author Tobias Sarnowski
  */
 @Singleton
-final class PooledHttpApiConnection implements ApiConnection, Provider<HttpClient> {
+final class PooledHttpApiConnection implements ApiConnection {
 	private static final Logger LOG = LoggerFactory.getLogger(PooledHttpApiConnection.class);
 
 	// xml parser
@@ -87,13 +86,14 @@ final class PooledHttpApiConnection implements ApiConnection, Provider<HttpClien
 	private int maxConnections = 10;
 
 	@Inject
-	public PooledHttpApiConnection(@ApiServer URI serverUri, ApiCoreParser apiCoreParser) {
-		this.serverUri = serverUri;
+	public PooledHttpApiConnection(ApiServer server, ApiCoreParser apiCoreParser) {
+		this.serverUri = server.getApiServer();
 		this.apiCoreParser = apiCoreParser;
 	}
 
-	@Produces    
-	public @ApiServer HttpClient get() {
+    @Produces
+    @ApiClient
+	public HttpClient getHttpClient() {
 		if (httpClient == null) {
 			initializeHttpClient();
 		}

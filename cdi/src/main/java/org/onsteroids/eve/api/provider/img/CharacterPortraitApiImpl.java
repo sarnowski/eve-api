@@ -28,7 +28,7 @@ import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.onsteroids.eve.api.InternalApiException;
-import org.onsteroids.eve.api.connector.ApiServer;
+import org.onsteroids.eve.api.connector.http.ApiClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +54,7 @@ public class CharacterPortraitApiImpl implements CharacterPortraitApi {
 
 
 	@Inject
-	public CharacterPortraitApiImpl(@ApiServer Provider<HttpClient> httpClientProvider) throws URISyntaxException {
+	public CharacterPortraitApiImpl(@ApiClient Provider<HttpClient> httpClientProvider) throws URISyntaxException {
 		this.httpClientProvider = httpClientProvider;
 		serverUri = new URI(CharacterPortraitApi.URL);
 	}

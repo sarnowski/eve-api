@@ -14,35 +14,43 @@
  * limitations under the License.
  */
 
+/**
+ * (c) 2010 Tobias Sarnowski
+ * All rights reserved.
+ */
 package org.onsteroids.eve.api.provider.eve;
 
 import com.eveonline.api.eve.AllianceList;
 import com.eveonline.api.eve.AllianceListApi;
 import com.eveonline.api.exceptions.ApiException;
-import org.onsteroids.eve.api.cache.ApiCache;
-import org.onsteroids.eve.api.connector.ApiConnection;
-import org.onsteroids.eve.api.provider.AbstractApiService;
+import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.onsteroids.eve.api.AbstractArquillianTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * @author Tobias Sarnowski
  */
-@Singleton
-public class AllianceListApiImpl extends AbstractApiService implements AllianceListApi {
-    private static final Logger LOG = LoggerFactory.getLogger(AllianceListApiImpl.class);
+@RunWith(Arquillian.class)
+public class NokAllianceList extends AbstractArquillianTest {
+	private static final Logger LOG = LoggerFactory.getLogger(NokAllianceList.class);
 
     @Inject
-    public AllianceListApiImpl(Instance<ApiConnection> apiConnection, Instance<ApiCache> apiCache) {
-        super(apiConnection.get(), apiCache.get());
-    }
+    private AllianceListApi allianceListApi;
 
-    @Override
-    public AllianceList getAllianceList() throws ApiException {
-        return call(AllianceListImpl.class, AllianceListApi.XMLPATH);
-    }
+	@Test
+	public void retrieveAlliances() throws ApiException {
+        AllianceList<AllianceList.Alliance> allianceList = allianceListApi.getAllianceList();
+
+        for (AllianceList.Alliance alliance: allianceList) {
+            LOG.info("Alliance: {} [{}]", alliance.getName(), alliance.getId());
+            for (AllianceList.Corporation corporation: alliance.getCorporations()) {
+                LOG.info("    * Corp: {}", corporation.getId());
+            }
+        }
+	}
 }
