@@ -28,12 +28,11 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Tobias Sarnowski
  */
-public final class DefaultJumps extends SerializableApiListResult<DefaultJumps.SolarSystemImpl> implements Jumps<DefaultJumps.SolarSystemImpl> {
+public final class DefaultJumps extends SerializableApiListResult<DefaultJumps.DefaultSolarSystem> implements Jumps<DefaultJumps.DefaultSolarSystem> {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultJumps.class);
 
     private Date dataTime;
@@ -43,7 +42,7 @@ public final class DefaultJumps extends SerializableApiListResult<DefaultJumps.S
         super.processResult(xmlApiResult, xmlResult);
 
         XmlUtility xml = new XmlUtility(xmlResult);
-        dataTime = DateUtility.parse(xml.getContentOf("dataTime"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
+        dataTime = DateUtility.parse(xml.getContentOf("dataTime"), xmlApiResult.getTimeDifference());
     }
 
     @Override
@@ -52,12 +51,12 @@ public final class DefaultJumps extends SerializableApiListResult<DefaultJumps.S
     }
 
     @Override
-    public Class<? extends SolarSystemImpl> getRowDefinition() {
-        return SolarSystemImpl.class;
+    public Class<? extends DefaultSolarSystem> getRowDefinition() {
+        return DefaultSolarSystem.class;
     }
 
 
-    public static final class SolarSystemImpl extends SerializableApiResult implements Jumps.SolarSystem {
+    public static final class DefaultSolarSystem extends SerializableApiResult implements Jumps.SolarSystem {
 
         private long id;
         private int jumps;

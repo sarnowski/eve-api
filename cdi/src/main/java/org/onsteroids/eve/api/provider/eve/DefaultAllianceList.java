@@ -20,7 +20,6 @@ import com.eveonline.api.ApiListResult;
 import com.eveonline.api.eve.AllianceList;
 import com.eveonline.api.exceptions.ApiException;
 import org.onsteroids.eve.api.DateUtility;
-import org.onsteroids.eve.api.InternalApiException;
 import org.onsteroids.eve.api.XmlUtility;
 import org.onsteroids.eve.api.connector.XmlApiResult;
 import org.onsteroids.eve.api.provider.SerializableApiListResult;
@@ -29,22 +28,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author Tobias Sarnowski
  */
-public class DefaultAllianceList extends SerializableApiListResult<DefaultAllianceList.AllianceImpl> implements AllianceList<DefaultAllianceList.AllianceImpl> {
+public final class DefaultAllianceList extends SerializableApiListResult<DefaultAllianceList.DefaultAlliance> implements AllianceList<DefaultAllianceList.DefaultAlliance> {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultAllianceList.class);
 
     @Override
-    public Class<? extends AllianceImpl> getRowDefinition() {
-        return DefaultAllianceList.AllianceImpl.class;
+    public Class<? extends DefaultAlliance> getRowDefinition() {
+        return DefaultAlliance.class;
     }
 
-    public static class AllianceImpl extends SerializableApiResult implements AllianceList.Alliance {
+    public static final class DefaultAlliance extends SerializableApiResult implements AllianceList.Alliance {
 
         private long id;
         private String name;
@@ -64,7 +62,7 @@ public class DefaultAllianceList extends SerializableApiListResult<DefaultAllian
             shortName = xml.getAttribute("shortName");
             executorCorporationId = Long.parseLong(xml.getAttribute("executorCorpID"));
             memberCount = Integer.parseInt(xml.getAttribute("memberCount"));
-            startDate = DateUtility.parse(xml.getAttribute("startDate"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
+            startDate = DateUtility.parse(xml.getAttribute("startDate"), xmlApiResult.getTimeDifference());
 
 	        corporations = new SerializableApiListResult<DefaultAllianceList.CorporationImpl>(xmlApiResult, xmlResult) {
                 @Override
@@ -110,7 +108,7 @@ public class DefaultAllianceList extends SerializableApiListResult<DefaultAllian
         }
     }
 
-    public static class CorporationImpl extends SerializableApiResult implements AllianceList.Corporation {
+    public static final class CorporationImpl extends SerializableApiResult implements AllianceList.Corporation {
 
         private long id;
         private Date startDate;

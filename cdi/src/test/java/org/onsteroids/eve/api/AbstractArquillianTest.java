@@ -34,30 +34,30 @@ import java.util.Properties;
  * @author Tobias Sarnowski
  */
 public abstract class AbstractArquillianTest {
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractArquillianTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractArquillianTest.class);
 
 	private Properties properties;
 
 
-    @Deployment
-    public static JavaArchive createDeployment() {
-        return ShrinkWrap.create("eve-api-cdi.jar", JavaArchive.class)
-                .addPackages(true, InternalApiException.class.getPackage());
-    }
+	@Deployment
+	public static JavaArchive createDeployment() {
+		return ShrinkWrap.create("eve-api-cdi.jar", JavaArchive.class)
+				.addPackages(true, InternalApiException.class.getPackage());
+	}
 
 
-    public LimitedApiKey getLimitedApiKey() {
-	    require("eve_limited.properties");
+	public LimitedApiKey getLimitedApiKey() {
+		require("eve_limited.properties");
 
 		return new LimitedApiKey() {
 			@Override
 			public long getUserId() {
 				return Long.parseLong(properties.getProperty("userID"));
 			}
-            @Override
-            public String getApiKey() {
-                return properties.getProperty("apiKey");
-            }
+			@Override
+			public String getApiKey() {
+				return properties.getProperty("apiKey");
+			}
 		};
 	}
 
@@ -69,10 +69,10 @@ public abstract class AbstractArquillianTest {
 			public long getUserId() {
 				return Long.parseLong(properties.getProperty("userID"));
 			}
-            @Override
-            public String getApiKey() {
-                return properties.getProperty("apiKey");
-            }
+			@Override
+			public String getApiKey() {
+				return properties.getProperty("apiKey");
+			}
 		};
 	}
 
@@ -84,16 +84,20 @@ public abstract class AbstractArquillianTest {
 			public long getUserId() {
 				return Long.parseLong(properties.getProperty("userID"));
 			}
-            @Override
-            public String getApiKey() {
-                return properties.getProperty("apiKey");
-            }
+			@Override
+			public String getApiKey() {
+				return properties.getProperty("apiKey");
+			}
 		};
 	}
 
 
 	public long getCharacterId() {
 		return Long.parseLong((String) properties.get("characterID"));
+	}
+
+	public long getStarbaseId() {
+		return Long.parseLong((String) properties.get("starbaseID"));
 	}
 
 

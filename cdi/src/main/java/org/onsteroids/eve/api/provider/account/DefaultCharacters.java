@@ -32,16 +32,16 @@ import org.w3c.dom.Node;
 /**
  * @author Tobias Sarnowski
  */
-public final class DefaultCharacters extends SerializableApiListResult<DefaultCharacters.CharacterImpl> implements Characters<DefaultCharacters.CharacterImpl> {
+public final class DefaultCharacters extends SerializableApiListResult<DefaultCharacters.DefaultCharacter> implements Characters<DefaultCharacters.DefaultCharacter> {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultCharacters.class);
 	
 
 	@Override
-	public Class<? extends CharacterImpl> getRowDefinition() {
-		return CharacterImpl.class;
+	public Class<? extends DefaultCharacter> getRowDefinition() {
+		return DefaultCharacter.class;
 	}
 
-	public static class CharacterImpl extends SerializableApiResult implements Characters.Character {
+	public static class DefaultCharacter extends SerializableApiResult implements Characters.Character {
 
 		private long id;
 		private String name;

@@ -28,12 +28,11 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Tobias Sarnowski
  */
-public class DefaultStarbaseList extends SerializableApiListResult<DefaultStarbaseList.DefaultStarbase> implements StarbaseList<DefaultStarbaseList.DefaultStarbase> {
+public final class DefaultStarbaseList extends SerializableApiListResult<DefaultStarbaseList.DefaultStarbase> implements StarbaseList<DefaultStarbaseList.DefaultStarbase> {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultStarbaseList.class);
 
 	@Override
@@ -41,7 +40,7 @@ public class DefaultStarbaseList extends SerializableApiListResult<DefaultStarba
 		return DefaultStarbase.class;
 	}
 
-	public static class DefaultStarbase extends SerializableApiResult implements StarbaseList.Starbase {
+	public static final class DefaultStarbase extends SerializableApiResult implements StarbaseList.Starbase {
 		private long id;
 		private long typeID;
 		private long locationId;
@@ -59,8 +58,8 @@ public class DefaultStarbaseList extends SerializableApiListResult<DefaultStarba
 			locationId = Long.parseLong(xml.getAttribute("locationID"));
 			moonId = Long.parseLong(xml.getAttribute("moonID"));
 			state = Integer.parseInt(xml.getAttribute("state"));
-			stateTime = DateUtility.parse(xml.getAttribute("stateTimestamp"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
-			onlineTime = DateUtility.parse(xml.getAttribute("onlineTimestamp"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
+			stateTime = DateUtility.parse(xml.getAttribute("stateTimestamp"), xmlApiResult.getTimeDifference());
+			onlineTime = DateUtility.parse(xml.getAttribute("onlineTimestamp"), xmlApiResult.getTimeDifference());
 		}
 
 		@Override

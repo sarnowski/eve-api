@@ -44,7 +44,7 @@ import java.util.List;
  * @author Tobias Sarnowski
  */
 @Singleton
-public class DefaultCharacterPortraitApi implements CharacterPortraitApi {
+final class DefaultCharacterPortraitApi implements CharacterPortraitApi {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultCharacterPortraitApi.class);
 
 	private static final String FORMAT = "image/jpeg";

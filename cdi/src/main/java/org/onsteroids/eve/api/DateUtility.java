@@ -47,8 +47,12 @@ public final class DateUtility {
         return new Date(date.getTime() + timeDifferenceUnit.toMillis(timeDifference));
     }
 
-    public static Date parse(String date, long timeDifference, TimeUnit timeDifferenceUnit) {
-        return withTimeDifference(parse(date), timeDifference, timeDifferenceUnit);
+	public static Date parse(String date, long timeDifference) {
+        return withTimeDifference(parse(date), timeDifference, TimeUnit.MILLISECONDS);
     }
+
+	public static Date parse(String date, long timeDifference, TimeUnit timeDifferenceUnit) {
+		return withTimeDifference(parse(date), timeDifference, timeDifferenceUnit);
+	}
 
 }

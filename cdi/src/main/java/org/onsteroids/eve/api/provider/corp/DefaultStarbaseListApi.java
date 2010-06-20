@@ -27,10 +27,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * @author Tobias Sarnowski
  */
+@Singleton
 final class DefaultStarbaseListApi extends AbstractApiService implements StarbaseListApi {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultStarbaseListApi.class);
 

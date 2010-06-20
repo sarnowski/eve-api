@@ -27,7 +27,7 @@ import java.io.InputStream;
 /**
  * @author Tobias Sarnowski
  */
-public class DefaultCharacterPortrait implements CharacterPortrait {
+public final class DefaultCharacterPortrait implements CharacterPortrait {
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultCharacterPortrait.class);
 
 	private final InputStream inputStream;

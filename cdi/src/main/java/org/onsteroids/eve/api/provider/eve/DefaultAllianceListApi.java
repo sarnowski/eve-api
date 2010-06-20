@@ -33,7 +33,7 @@ import javax.inject.Singleton;
  * @author Tobias Sarnowski
  */
 @Singleton
-public class DefaultAllianceListApi extends AbstractApiService implements AllianceListApi {
+final class DefaultAllianceListApi extends AbstractApiService implements AllianceListApi {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultAllianceListApi.class);
 
     @Inject

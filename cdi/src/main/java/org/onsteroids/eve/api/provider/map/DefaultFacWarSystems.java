@@ -29,16 +29,16 @@ import org.w3c.dom.Node;
 /**
  * @author Tobias Sarnowski
  */
-public final class DefaultFacWarSystems extends SerializableApiListResult<DefaultFacWarSystems.SolarSystemImpl> implements FacWarSystems<DefaultFacWarSystems.SolarSystemImpl> {
+public final class DefaultFacWarSystems extends SerializableApiListResult<DefaultFacWarSystems.DefaultSolarSystem> implements FacWarSystems<DefaultFacWarSystems.DefaultSolarSystem> {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultFacWarSystems.class);
 
     @Override
-    public Class<? extends SolarSystemImpl> getRowDefinition() {
-        return SolarSystemImpl.class;
+    public Class<? extends DefaultSolarSystem> getRowDefinition() {
+        return DefaultSolarSystem.class;
     }
 
 
-    public static final class SolarSystemImpl extends SerializableApiResult implements FacWarSystems.SolarSystem {
+    public static final class DefaultSolarSystem extends SerializableApiResult implements FacWarSystems.SolarSystem {
 
         private long id;
         private String name;
