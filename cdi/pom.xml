@@ -23,6 +23,14 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+	    <repository>
+		    <id>jboss-stable</id>
+		    <name>JBoss Stable</name>
+		    <url>http://repository.jboss.com/maven2/</url>
+		    <snapshots>
+			    <enabled>false</enabled>
+		    </snapshots>
+	    </repository>
     </repositories>
 
     <dependencies>
@@ -189,7 +197,7 @@
             <id>with-ceo-key</id>
             <activation>
                 <file>
-                    <exists>${user.home}/eve_ceo.properties</exists>
+                    <exists>${user.home}/eve_director.properties</exists>
                 </file>
             </activation>
             <build>
@@ -202,7 +210,7 @@
                                 <include>**/Nok*.java</include>
                                 <include>**/Limited*.java</include>
                                 <include>**/Full*.java</include>
-                                <include>**/Ceo*.java</include>
+                                <include>**/Director*.java</include>
                             </includes>
                         </configuration>
                     </plugin>

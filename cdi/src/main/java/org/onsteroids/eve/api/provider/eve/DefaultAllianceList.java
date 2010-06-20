@@ -64,11 +64,7 @@ public class DefaultAllianceList extends SerializableApiListResult<DefaultAllian
             shortName = xml.getAttribute("shortName");
             executorCorporationId = Long.parseLong(xml.getAttribute("executorCorpID"));
             memberCount = Integer.parseInt(xml.getAttribute("memberCount"));
-            try {
-                startDate = DateUtility.parse(xml.getAttribute("startDate"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
-            } catch (ParseException e) {
-                throw new InternalApiException(e);
-            }
+            startDate = DateUtility.parse(xml.getAttribute("startDate"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
 
 	        corporations = new SerializableApiListResult<DefaultAllianceList.CorporationImpl>(xmlApiResult, xmlResult) {
                 @Override
@@ -124,11 +120,7 @@ public class DefaultAllianceList extends SerializableApiListResult<DefaultAllian
             XmlUtility xml = new XmlUtility(xmlResult);
             
             id = Long.parseLong(xml.getAttribute("corporationID"));
-            try {
-                startDate = DateUtility.parse(xml.getAttribute("startDate"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
-            } catch (ParseException e) {
-                throw new InternalApiException(e);
-            }
+            startDate = DateUtility.parse(xml.getAttribute("startDate"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
         }
 
         @Override

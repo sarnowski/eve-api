@@ -23,6 +23,7 @@ package org.onsteroids.eve.api.provider;
 import com.eveonline.api.ApiKey;
 import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.server.ServerStatusApi;
+import com.google.common.collect.Maps;
 import org.onsteroids.eve.api.InternalApiException;
 import org.onsteroids.eve.api.cache.ApiCache;
 import org.onsteroids.eve.api.connector.ApiConnection;
@@ -100,4 +101,30 @@ public abstract class AbstractApiService {
 		}
 		return cached;
 	}
+
+	/**
+	 * @param key
+	 * @param value
+	 * @return a map with an entry of key-value
+	 */
+	public Map<String,String> withParameter(String key, String value) {
+		Map<String,String> map = Maps.newHashMap();
+		map.put(key, value);
+		return map;
+	}
+
+	/**
+	 * @param key1
+	 * @param value1
+	 * @param key2
+	 * @param value2
+	 * @return a map with two entries of key1-value1 and key2-value2
+	 */
+	public Map<String,String> withParameter(String key1, String value1, String key2, String value2) {
+		Map<String,String> map = Maps.newHashMap();
+		map.put(key1, value1);
+		map.put(key2, value2);
+		return map;
+	}
+
 }

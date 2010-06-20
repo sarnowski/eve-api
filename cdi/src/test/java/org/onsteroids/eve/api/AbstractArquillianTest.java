@@ -36,6 +36,9 @@ import java.util.Properties;
 public abstract class AbstractArquillianTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractArquillianTest.class);
 
+	private Properties properties;
+
+
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create("eve-api-cdi.jar", JavaArchive.class)
@@ -44,36 +47,68 @@ public abstract class AbstractArquillianTest {
 
 
     public LimitedApiKey getLimitedApiKey() {
-		return loadApiKey(new File(System.getProperty("user.home") + File.separatorChar + "eve_limited.properties"));
-	}
+	    require("eve_limited.properties");
 
-	public FullApiKey getFullApiKey() {
-		return loadApiKey(new File(System.getProperty("user.home") + File.separatorChar + "eve_full.properties"));
-	}
-
-	public DirectorApiKey getCeoApiKey() {
-		return loadApiKey(new File(System.getProperty("user.home") + File.separatorChar + "eve_ceo.properties"));
-	}
-
-
-	private DirectorApiKey loadApiKey(File file) {
-		final Properties properties = new Properties();
-		try {
-			LOG.trace("Loading API Key informations from {}", file);
-			properties.load(new FileInputStream(file));
-		} catch (IOException e) {
-			throw new IllegalStateException("ApiKey file not found: " + file, e);
-		}
-		return new DirectorApiKey() {
+		return new LimitedApiKey() {
 			@Override
 			public long getUserId() {
 				return Long.parseLong(properties.getProperty("userID"));
 			}
-
             @Override
             public String getApiKey() {
                 return properties.getProperty("apiKey");
             }
 		};
 	}
+
+	public FullApiKey getFullApiKey() {
+		require("eve_full.properties");
+
+		return new FullApiKey() {
+			@Override
+			public long getUserId() {
+				return Long.parseLong(properties.getProperty("userID"));
+			}
+            @Override
+            public String getApiKey() {
+                return properties.getProperty("apiKey");
+            }
+		};
+	}
+
+	public DirectorApiKey getDirectorApiKey() {
+		require("eve_director.properties");
+
+		return new DirectorApiKey() {
+			@Override
+			public long getUserId() {
+				return Long.parseLong(properties.getProperty("userID"));
+			}
+            @Override
+            public String getApiKey() {
+                return properties.getProperty("apiKey");
+            }
+		};
+	}
+
+
+	public long getCharacterId() {
+		return Long.parseLong((String) properties.get("characterID"));
+	}
+
+
+	private void require(String fileName) {
+		if (properties == null) {
+			File file = new File(System.getProperty("user.home") + File.separatorChar + fileName);
+
+			properties = new Properties();
+			LOG.trace("Loading test configuration from {}", file);
+			try {
+				properties.load(new FileInputStream(file));
+			} catch (IOException e) {
+				throw new IllegalStateException(e);
+			}
+		}
+	}
+
 }

@@ -35,15 +35,19 @@ public final class DateUtility {
     private static final DateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
-    public static Date parse(String date) throws ParseException {
-        return dateParser.parse(date);
+    public static Date parse(String date) {
+	    try {
+		    return dateParser.parse(date);
+	    } catch (ParseException e) {
+		    throw new IllegalArgumentException(e);
+	    }
     }
 
     public static Date withTimeDifference(Date date, long timeDifference, TimeUnit timeDifferenceUnit) {
         return new Date(date.getTime() + timeDifferenceUnit.toMillis(timeDifference));
     }
 
-    public static Date parse(String date, long timeDifference, TimeUnit timeDifferenceUnit) throws ParseException {
+    public static Date parse(String date, long timeDifference, TimeUnit timeDifferenceUnit) {
         return withTimeDifference(parse(date), timeDifference, timeDifferenceUnit);
     }
 

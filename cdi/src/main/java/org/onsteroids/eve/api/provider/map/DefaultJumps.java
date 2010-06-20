@@ -19,7 +19,6 @@ package org.onsteroids.eve.api.provider.map;
 import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.map.Jumps;
 import org.onsteroids.eve.api.DateUtility;
-import org.onsteroids.eve.api.InternalApiException;
 import org.onsteroids.eve.api.XmlUtility;
 import org.onsteroids.eve.api.connector.XmlApiResult;
 import org.onsteroids.eve.api.provider.SerializableApiListResult;
@@ -28,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -45,11 +43,7 @@ public final class DefaultJumps extends SerializableApiListResult<DefaultJumps.S
         super.processResult(xmlApiResult, xmlResult);
 
         XmlUtility xml = new XmlUtility(xmlResult);
-        try {
-            dataTime = DateUtility.parse(xml.getContentOf("dataTime"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
-        } catch (ParseException e) {
-            throw new InternalApiException(e);
-        }
+        dataTime = DateUtility.parse(xml.getContentOf("dataTime"), xmlApiResult.getTimeDifference(), TimeUnit.MILLISECONDS);
     }
 
     @Override

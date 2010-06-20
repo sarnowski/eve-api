@@ -46,7 +46,8 @@ public class LimitedCharacters extends AbstractArquillianTest {
 
 	@Test
 	public void retrieveCharacters() throws ApiException {
-		List<Characters.Character> characters = Preconditions.checkNotNull(charactersApi.getCharacters(getLimitedApiKey()), "Characters");
+		List<Characters.Character> characters = charactersApi.getCharacters(getLimitedApiKey());
+		Preconditions.checkNotNull(characters, "Characters");
 
 		for (Characters.Character character: characters) {
 			LOG.info("Found Character:  {} ({}) [{} ({})]", new Object[]{
