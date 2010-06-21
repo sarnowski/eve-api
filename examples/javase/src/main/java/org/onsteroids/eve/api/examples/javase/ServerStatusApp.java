@@ -1,8 +1,10 @@
-package org.onsteroids.eve.api;
+package org.onsteroids.eve.api.examples.javase;
 
 import com.eveonline.api.exceptions.ApiException;
 import com.eveonline.api.server.ServerStatus;
 import com.eveonline.api.server.ServerStatusApi;
+import org.onsteroids.eve.api.Api;
+import org.onsteroids.eve.api.WeldApi;
 
 /**
  * @author Tobias Sarnowski

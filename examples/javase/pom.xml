@@ -5,20 +5,25 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.onsteroids.eve</groupId>
-	<artifactId>eve-api-serverstatus</artifactId>
-    <version>1.0-SNAPSHOT</version>
+	<artifactId>eve-api-example-javase</artifactId>
+    <version>1.0-tyrannis-api-SNAPSHOT</version>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.onsteroids.eve</groupId>
 			<artifactId>eve-api-weld</artifactId>
-			<version>1.0-tyrannis-api-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 
+		<dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.6</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
-            <version>1.5.10</version>
+            <version>1.5.6</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
