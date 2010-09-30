@@ -13,6 +13,7 @@
 
 	<groupId>org.onsteroids.eve</groupId>
 	<artifactId>eve-api-weld</artifactId>
+    <name>EVE on steroids: API implementation (SE)</name>
 
     <repositories>
         <repository>
